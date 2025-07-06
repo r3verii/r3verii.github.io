@@ -1,0 +1,14 @@
+body { margin:0; font-family: system-ui, sans-serif; background:#0d1117; color:#c9d1d9; line-height:1.6; }
+a { color:#58a6ff; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.container { max-width: 800px; margin:0 auto; padding:1rem; }
+.site-header { text-align:center; padding:2rem 1rem; }
+.nav { margin-bottom:1rem; }
+.nav-item { margin:0 .5rem; }
+.posts-list { margin-top:2rem; }
+.post-item { margin-bottom:2rem; }
+.post-title { margin-top:0; }
+.post-meta { color:#8b949e; font-size:.9rem; margin-bottom:1rem; }
+h1,h2,h3,h4 { color:#f0f6fc; }
+pre, code { background:#161b22; padding:.2rem .4rem; border-radius:4px; }
+.footer { text-align:center; padding:2rem 1rem; font-size:.9rem; color:#8b949e; }

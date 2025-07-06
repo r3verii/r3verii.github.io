@@ -1,0 +1,10 @@
+title: "CyberSec Notes"
+description: "CTF write‑ups, CVEs and Bug Bounty findings"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://<username>.github.io" # replace with your GitHub username
+markdown: kramdown
+theme: null
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
