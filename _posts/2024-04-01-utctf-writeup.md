@@ -4,10 +4,7 @@ title: "UTCTF 2024 Writeups"
 date: 2024-04-01T08:14:54+00:00
 img_dir: "/assets/2024-04-01-utctf-writeup"
 description: "Writeups of some challenges from UTCTF 2024"
-tags:
-- wordpress
-- php
-- exploit
+categories: [ctf]
 ---
 
 
