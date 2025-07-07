@@ -45,11 +45,6 @@ code {
   border-radius:3px;
 }
 
-/* Responsive images */
-.post-content img, .posts-list img {
-  max-width:100%;
-  height:auto;
-  border:1px solid #ff5555;
 }
 
 .footer { text-align:center; padding:2.2rem 1rem; font-size:.9rem; color:#b8c7c5; }
@@ -57,4 +52,14 @@ code {
 @keyframes pulse {
   from { text-shadow:0 0 6px #39ff14; }
   to { text-shadow:0 0 12px #39ff14; }
+}
+
+
+/* --- v3.1 image alignment fix --- */
+.post-content img, .posts-list img {
+  max-width:100%;
+  height:auto;
+  display:block;
+  margin:1.5rem auto;     /* center horizontally */
+  border:1px solid #ff5555;
 }
