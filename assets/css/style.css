@@ -122,13 +122,31 @@ code{background:#161b22;padding:.2rem .4rem;border-radius:3px;}
 /* ----------------------------------------------------------------------- */
 /*  MOBILE / TABLET                                                        */
 /* ----------------------------------------------------------------------- */
+/* ---- HEADER visibile sopra sidebar + contenuto ------------------------- */
+/* … [tutto il contenuto di v4.3 invariato sopra] … */
+
+/* ----------------------------------------------------------------------- */
+/*  MOBILE / TABLET                                                        */
+/* ----------------------------------------------------------------------- */
 @media(max-width:900px){
-  body{display:block;}              /* niente grid                        */
+  body{display:block;}
   .sidebar{
-    position:static;
-    width:100%; height:auto;
-    border-right:none; border-bottom:4px solid #39ff14;
+    position:static;width:100%;height:auto;
+    border-right:none;border-bottom:4px solid #39ff14;
   }
-  .container{margin:0 auto;}        /* resta centrato anche su mobile     */
+  .container{margin:0 auto;}
   .posts-grid{grid-template-columns:1fr;}
 }
+
+/* ----------------------------------------------------------------------- */
+/*  HEADER FIX  (visible across columns)                                   */
+/* ----------------------------------------------------------------------- */
+@media (min-width: 900px){
+  .site-header{
+    grid-column: 1 / -1;                 /* attraversa entrambe le colonne */
+    z-index: 5;
+    padding-left: calc(var(--sidebar-w) + 1rem); /* allinea testo se vuoi */
+  }
+}
+
+
