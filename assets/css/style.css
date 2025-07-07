@@ -160,18 +160,26 @@ code {
 }
 
 /* ─── layout stabile a due colonne SOLO su desktop ─── */
+/* ─── layout sidebar fisso solo su desktop ─────────────────────── */
 @media (min-width: 1024px) {
+
+  /* container più largo per ospitare 260 px di sidebar */
+  .container { max-width: 1100px; }
+
+  /* due colonne stabili (post | sidebar) */
   .home-grid {
-    display: grid;                     /* più robusto di flex per due colonne */
-    grid-template-columns: 1fr 260px;  /* post | sidebar */
+    display: grid;
+    grid-template-columns: 1fr 260px;
     gap: 2rem;
     align-items: start;
   }
-  .posts-list { min-width: 0; }        /* evita overflow */
+
+  /* evita che i post forzino larghezza minima */
+  .posts-list { min-width: 0; }
 }
 
-/* Fallback mobile / tablet */
+/* fallback mobile/tablet */
 @media (max-width: 1023px) {
-  .home-grid { flex-direction: column; }
-  .sidebar   { order: -1; }            /* sidebar sopra ai post */
+  .home-grid { flex-direction: column; } /* oppure lasci grid, ma verticale */
+  .sidebar   { order: -1; }             /* sidebar sopra */
 }
