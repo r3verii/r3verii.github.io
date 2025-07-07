@@ -4,4 +4,4 @@ title: About
 ---
 ## About this blog
 
-Benvenutə! Questo è il mio spazio dove annoto soluzioni di CTF, CVE che ho scoperto, tecniche di Bug Bounty e altre ricerche sulla cybersecurity. Tutti i contenuti riflettono solo le mie opinioni.
+Welcome! This is my space where I jot down CTF solutions, CVEs I have discovered, Bug Bounty findings, and other cybersecurity research.
