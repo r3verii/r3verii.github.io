@@ -128,14 +128,18 @@ code{background:#161b22;padding:.2rem .4rem;border-radius:3px;}
 /* ----------------------------------------------------------------------- */
 /*  MOBILE / TABLET                                                        */
 /* ----------------------------------------------------------------------- */
-@media(max-width:900px){
-  body{display:block;}
-  .sidebar{
-    position:static;width:100%;height:auto;
-    border-right:none;border-bottom:4px solid #39ff14;
+@media (min-width: 900px){
+  body.has-sidebar{
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;   /* sidebar | contenuto */
   }
-  .container{margin:0 auto;}
-  .posts-grid{grid-template-columns:1fr;}
+
+  /* l’header deve comunque attraversare entrambe le colonne */
+  body.has-sidebar .site-header{
+    grid-column: 1 / -1;
+    z-index: 5;
+    padding-left: calc(var(--sidebar-w) + 1rem);
+  }
 }
 
 /* ----------------------------------------------------------------------- */

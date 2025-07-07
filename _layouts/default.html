@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
   </head>
-  <body>
+  <body{% if page.url == '/' %} class="has-sidebar"{% endif %}>
     {% include header.html %}
     <main class="container post-content">
       {{ content }}
