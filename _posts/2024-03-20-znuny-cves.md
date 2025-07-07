@@ -144,6 +144,7 @@ In the above example case I simply used a payload that makes DELETE always TRUE 
 
 The ticket detail view on the customer front allows the execution of external JavaScript.
 
+![]({{ page.img_dir | relative_url }}/image10.png)
+
 ![]({{ page.img_dir | relative_url }}/image9.png)
 
-![]({{ page.img_dir | relative_url }}/image10.png)
