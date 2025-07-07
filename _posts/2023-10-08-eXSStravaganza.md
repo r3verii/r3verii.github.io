@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Soluzione CTF ACME"
+title:  "CodeInTheDarkCTF 2023 writeups"
 categories: [ctf]
-tags: [ssti]
+tags: [xss]
 img_dir: "/assets/2023-10-08-eXSStravaganza/images"   # <— nuovo
 ---
 
