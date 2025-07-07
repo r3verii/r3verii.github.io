@@ -14,7 +14,7 @@ categories: [cve]
 - Affected : All versions of Znuny and Znuny LTS from 6.0.31 up to and including 6.5.7. All versions of Znuny from 7.0.1 up to and including 7.0.16.
 - Severity : Critical
 - CVE : CVE-2024-32491 
-- Resources : [NVD](https://nvd.nist.gov/vuln/detail/CVE-2024-32491) | [Znuny Advisory](https://www.znuny.org/en/advisories/zsa-2024-01)
+- Resources : [NVD](https://nvd.nist.gov/vuln/detail/CVE-2024-32491) - [Znuny Advisory](https://www.znuny.org/en/advisories/zsa-2024-01)
 
 **Premise** : In default installations (that use the DB module for cached file uploads), this vulnerability is not present. So to exploit this vulnerability , you need to set `Kernel::System::Web::UploadCache::FS`
 
@@ -77,7 +77,7 @@ To mitigate this vuln just use the function basename() :
 - Affected : All versions of Znuny LTS from 6.5.1 up to including 6.5.7. All versions of Znuny from 7.0.1 up to including 7.0.16.
 - Severity : medium
 - CVE : CVE-2024-32493 
-- Resources : [NVD](https://nvd.nist.gov/vuln/detail/CVE-2024-32493) | [Znuny Advisory](https://www.znuny.org/en/advisories/zsa-2024-03)
+- Resources : [NVD](https://nvd.nist.gov/vuln/detail/CVE-2024-32493) - [Znuny Advisory](https://www.znuny.org/en/advisories/zsa-2024-03)
 
 
 I found an SQLI vulnerability in the function  "FormIDCleanUp()" , in the file `/Znuny/Kernel/System/Web/UploadCache/DB.pm:310` [GitHub](https://github.com/znuny/Znuny/blob/7c1e60ccc737b046c1e96fe1b0554fcf1c68f6f7/Kernel/System/Web/UploadCache/DB.pm#L310) 
@@ -139,7 +139,7 @@ In the above example case I simply used a payload that makes DELETE always TRUE 
 - Affected : All versions of Znuny from 7.0.1 up to including 7.0.16.
 - Severity : medium
 - CVE : CVE-2024-32492 
-- Resources : [NVD](https://nvd.nist.gov/vuln/detail/CVE-2024-32492) | [Znuny Advisory](https://www.znuny.org/en/advisories/zsa-2024-02)
+- Resources : [NVD](https://nvd.nist.gov/vuln/detail/CVE-2024-32492) - [Znuny Advisory](https://www.znuny.org/en/advisories/zsa-2024-02)
 
 
 The ticket detail view on the customer front allows the execution of external JavaScript.
