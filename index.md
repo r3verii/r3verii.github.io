@@ -6,7 +6,7 @@ title: Home
   {% for post in site.posts %}
     <article class="post-item">
       <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-      <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+      <p class="excerpt">{{ post.description | strip_html }}</p>
       <a href="{{ post.url | relative_url }}">Read more &raquo;</a>
     </article>
   {% endfor %}

@@ -4,6 +4,7 @@ title:  "CodeInTheDarkCTF 2023 writeups"
 categories: [ctf]
 tags: [xss]
 img_dir: "/assets/2023-10-08-eXSStravaganza/images"   # <— nuovo
+description: "Writeups of some XSS challenges from CodeInTheDark CTF"
 ---
 
 
