@@ -1,9 +1,9 @@
-/* CyberSec Blog v4.2 ------------------------------------------------------- */
+/* CyberSec Blog v4.3 — sidebar fissa, home grid, article centrato --------- */
 :root { --sidebar-w: 280px; }
 
-/* ------------------------------------------------------------------------- */
-/* BASE                                                                      */
-/* ------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------- */
+/*  BASICS                                                                 */
+/* ----------------------------------------------------------------------- */
 body{
   margin:0;
   font-family:'Source Code Pro',monospace;
@@ -12,15 +12,49 @@ body{
   line-height:1.6;
 }
 
-/* offset globale per lasciare spazio alla sidebar su desktop */
+/* layout a due colonne:  sidebar | contenuto  (>=900 px) */
 @media (min-width: 900px){
-  body{ padding-left: var(--sidebar-w); }
+  body{
+    display:grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+  }
 }
 
 a{color:#39ff14;text-decoration:none;transition:color .2s,text-shadow .2s;}
 a:hover{color:#ff5555;text-shadow:0 0 6px #ff2222;}
 
-/* header ------------------------------------------------------------------ */
+/* ----------------------------------------------------------------------- */
+/*  SIDEBAR                                                                */
+/* ----------------------------------------------------------------------- */
+.sidebar{
+  grid-column:1;
+  position:fixed;        /* resta in vista */
+  top:0; left:0;
+  width:260px; height:100vh;
+  overflow-y:auto;
+  background:#161b22;
+  padding:1rem;
+  border-right:4px solid #39ff14;
+  color:#e5e9ea;
+}
+.profile-pic{width:100%;border-radius:50%;margin-bottom:1rem;border:2px solid #ff5555;}
+.author-name{margin:0;color:#f0f6fc;}
+.location{font-size:.9rem;color:#8b949e;margin:0 0 1rem;}
+.bio{margin:0 0 1.5rem;}
+.social a{color:#39ff14;}
+.social a:hover{color:#ff5555;}
+
+/* ----------------------------------------------------------------------- */
+/*  GLOBAL CONTAINER (main)                                                */
+/* ----------------------------------------------------------------------- */
+.container{
+  grid-column:2;                    /* sempre nella colonna di destra       */
+  max-width:840px;                  /* larghezza massima, come all’inizio   */
+  margin:0 auto;                    /* centrato nello spazio disponibile    */
+  padding:1rem;
+}
+
+/* header / nav ----------------------------------------------------------- */
 .site-header{text-align:center;padding:2.5rem 1rem;animation:pulse 4s infinite alternate;}
 .site-title{font-size:2.4rem;color:#39ff14;text-shadow:0 0 8px #39ff14;}
 .site-description{color:#ff5555;font-size:1.1rem;}
@@ -31,33 +65,10 @@ h1,h2,h3,h4{color:#39ff14;text-shadow:0 0 6px #39ff14;}
 .post-item time{color:#ff5555;}
 .post-meta{color:#ff5555;font-size:.9rem;margin-bottom:1rem;}
 
-/* container: ora centrato ovunque ---------------------------------------- */
-.container{
-  max-width:840px;          /* valore iniziale */
-  margin:0 auto;            /* centrato rispetto allo spazio libero */
-  padding:1rem;
-}
-
-/* ------------------------------------------------------------------------- */
-/* SIDEBAR FISSA A SINISTRA                                                  */
-/* ------------------------------------------------------------------------- */
-.sidebar{
-  position:fixed;top:0;left:0;
-  width:260px;height:100vh;overflow-y:auto;
-  background:#161b22;padding:1rem;
-  border-right:4px solid #39ff14;color:#e5e9ea;
-}
-.profile-pic{width:100%;border-radius:50%;margin-bottom:1rem;border:2px solid #ff5555;}
-.author-name{margin:0;color:#f0f6fc;}
-.location{font-size:.9rem;color:#8b949e;margin:0 0 1rem;}
-.bio{margin:0 0 1.5rem;}
-.social a{color:#39ff14;}
-.social a:hover{color:#ff5555;}
-
-/* ------------------------------------------------------------------------- */
-/* HOME PAGE: layout + card grid                                             */
-/* ------------------------------------------------------------------------- */
-.layout{margin-left:0;padding:1rem 1.5rem;}          /* niente offset: gestito dal body */
+/* ----------------------------------------------------------------------- */
+/*  HOME PAGE — griglia di card                                            */
+/* ----------------------------------------------------------------------- */
+.layout{padding:1rem 1.5rem;}       /* wrapper home (colonna 2 di default)  */
 
 .posts-grid{
   display:grid;
@@ -74,46 +85,50 @@ h1,h2,h3,h4{color:#39ff14;text-shadow:0 0 6px #39ff14;}
 .post-card .excerpt{color:#b8c7c5;margin:.6rem 0 1rem;}
 .read-more{color:#39ff14;font-size:.9rem;}
 
-/* ------------------------------------------------------------------------- */
-/* ARTICOLO SINGOLO                                                          */
-/* ------------------------------------------------------------------------- */
-.post{
-  /* rimuovo bordo & bg, lascio un solo padding orizzontale leggero */
-  background:none;
-  border:none;
-  padding:0 0.5rem;
-}
+/* ----------------------------------------------------------------------- */
+/*  SINGOLO ARTICOLO                                                       */
+/* ----------------------------------------------------------------------- */
+.post{background:none;border:none;padding:0 0.5rem;}   /* niente riquadro */
 
-/* ------------------------------------------------------------------------- */
-/* CODE & IMAGES                                                             */
-/* ------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------- */
+/*  CODE & IMAGES                                                          */
+/* ----------------------------------------------------------------------- */
 pre{
-  overflow-x:auto;background:#000;padding:1rem;
-  border-left:4px solid #39ff14;margin:1.5rem 0;
+  overflow-x:auto;
+  background:#000;
+  padding:1rem;
+  border-left:4px solid #39ff14;
+  margin:1.5rem 0;
 }
 pre code{
-  font-family:'IBM Plex Mono','Courier New',monospace;font-size:.9rem;
+  font-family:'IBM Plex Mono','Courier New',monospace;
+  font-size:.9rem;
 }
 code{background:#161b22;padding:.2rem .4rem;border-radius:3px;}
 
 .post-content img,.posts-grid img{
-  max-width:100%;height:auto;display:block;
-  margin:1.5rem auto;border:1px solid #ff5555;
+  max-width:100%;
+  height:auto;
+  display:block;
+  margin:1.5rem auto;
+  border:1px solid #ff5555;
 }
 
-/* footer ------------------------------------------------------------------ */
+/* footer ---------------------------------------------------------------- */
 .footer{text-align:center;padding:2.2rem 1rem;font-size:.9rem;color:#b8c7c5;}
 
 @keyframes pulse{from{text-shadow:0 0 6px #39ff14;}to{text-shadow:0 0 12px #39ff14;}}
 
-/* ------------------------------------------------------------------------- */
-/* RESPONSIVE                                                                */
-/* ------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------- */
+/*  MOBILE / TABLET                                                        */
+/* ----------------------------------------------------------------------- */
 @media(max-width:900px){
-  body{ padding-left:0; }
+  body{display:block;}              /* niente grid                        */
   .sidebar{
-    position:static;width:100%;height:auto;
-    border-right:none;border-bottom:4px solid #39ff14;
+    position:static;
+    width:100%; height:auto;
+    border-right:none; border-bottom:4px solid #39ff14;
   }
+  .container{margin:0 auto;}        /* resta centrato anche su mobile     */
   .posts-grid{grid-template-columns:1fr;}
 }
