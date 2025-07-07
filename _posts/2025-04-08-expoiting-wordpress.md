@@ -12,7 +12,7 @@ tags:
 ![Cover]({{ page.img_dir | relative_url }}/cover.png) 
 
 
-Hi , I am Martino Spagnuolo a Sorintian for just over a year and this is my first post on Dock12.
+
 
 #### About Me: 
 
