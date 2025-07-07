@@ -63,3 +63,50 @@ code {
   margin:1.5rem auto;     /* center horizontally */
   border:1px solid #ff5555;
 }
+
+
+/* ==== Sidebar layout patch ==== */
+.home-grid {
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+}
+.posts-list {
+  flex:1 1 60ch;
+}
+.sidebar {
+  flex:0 0 260px;
+  background:#161b22;
+  padding:1rem;
+  border:1px solid #39ff14;
+  border-radius:8px;
+  color:#e5e9ea;
+}
+.profile-pic {
+  width:100%;
+  border-radius:50%;
+  margin-bottom:1rem;
+  border:2px solid #ff5555;
+}
+.author-name {
+  margin:0;
+  color:#f0f6fc;
+}
+.sidebar .location {
+  font-size:0.9rem;
+  color:#8b949e;
+}
+.sidebar .bio {
+  margin:1rem 0;
+}
+.sidebar .social a {
+  color:#39ff14;
+  text-decoration:none;
+}
+.sidebar .social a:hover {
+  color:#ff5555;
+}
+@media(max-width: 768px){
+  .home-grid { flex-direction:column; }
+  .sidebar { order:-1; }
+}

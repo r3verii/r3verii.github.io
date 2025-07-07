@@ -8,3 +8,6 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+author:
+  name: "Martino Spagnuolo ( r3verii )"
+  bio: "Cybersec researcher, CTF enthusiast and bug hunter."
