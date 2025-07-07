@@ -1,185 +1,100 @@
-/* CyberSec Blog v3 – improved code highlighting & layout */
-body {
-  margin: 0;
-  font-family: 'Source Code Pro', monospace;
-  background: #352e2e;           /* sfondo lievemente schiarito */
-  color: #ffffff;                /* testo quasi bianco */
-  line-height: 1.6;
+/* CyberSec Blog v4 – fixed left sidebar + post grid + highlight */
+/* ------------------------------------------------------------- */
+body{
+  margin:0;
+  font-family:'Source Code Pro',monospace;
+  background:#352e2e;
+  color:#ffffff;
+  line-height:1.6;
 }
 
-a {
-  color: #39ff14;
-  text-decoration: none;
-  transition: color 0.2s ease-in-out, text-shadow 0.2s;
+/* ——— link ——— */
+a{color:#39ff14;text-decoration:none;transition:color .2s,text-shadow .2s;}
+a:hover{color:#ff5555;text-shadow:0 0 6px #ff2222;}
+
+/* ——— header / nav ——— */
+.site-header{text-align:center;padding:2.5rem 1rem;animation:pulse 4s infinite alternate;}
+.site-title{font-size:2.4rem;color:#39ff14;text-shadow:0 0 8px #39ff14;}
+.site-description{color:#ff5555;font-size:1.1rem;}
+.nav{margin-bottom:1rem;}
+.nav-item{margin:0 .6rem;}
+
+/* ——— typography ——— */
+h1,h2,h3,h4{color:#39ff14;text-shadow:0 0 6px #39ff14;}
+.post-item time{color:#ff5555;}
+.post-meta{color:#ff5555;font-size:.9rem;margin-bottom:1rem;}
+
+/* ------------------------------------------------------------- */
+/* === LAYOUT PRINCIPALE ======================================= */
+/* ------------------------------------------------------------- */
+
+/* sidebar fissa a sinistra */
+.sidebar{
+  position:fixed;top:0;left:0;
+  width:260px;height:100vh;
+  background:#161b22;
+  padding:1rem;
+  border-right:4px solid #39ff14;
+  overflow-y:auto;
+  color:#e5e9ea;
+}
+.profile-pic{width:100%;border-radius:50%;margin-bottom:1rem;border:2px solid #ff5555;}
+.author-name{margin:0;color:#f0f6fc;}
+.location{font-size:.9rem;color:#8b949e;margin:0 0 1rem;}
+.bio{margin:0 0 1.5rem;}
+.social a{color:#39ff14;}
+.social a:hover{color:#ff5555;}
+
+/* wrapper che sposta il contenuto a destra della sidebar */
+.layout{
+  margin-left:280px;      /* 260px sidebar + 20px spazio */
+  padding:1rem 1.5rem;
 }
 
-a:hover {
-  color: #ff5555;
-  text-shadow: 0 0 6px #ff2222;
+/* griglia fluida dei post (1-3 colonne) */
+.posts-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+  gap:2rem;
+}
+.post-card{
+  background:#252121;
+  padding:1.5rem;
+  border:1px solid #39ff14;
+  border-radius:8px;
+}
+.post-card h2{margin-top:0;}
+.post-card .excerpt{color:#b8c7c5;margin:.6rem 0 1rem;}
+.read-more{color:#39ff14;font-size:.9rem;}
+
+/* ------------------------------------------------------------- */
+/* === CODE & IMAGE STYLES ===================================== */
+/* ------------------------------------------------------------- */
+pre{
+  overflow-x:auto;background:#000;padding:1rem;
+  border-left:4px solid #39ff14;margin:1.5rem 0;
+}
+pre code{
+  font-family:'IBM Plex Mono','Courier New',monospace;
+  font-size:.9rem;/* colori da highlight.js */
+}
+code{background:#161b22;padding:.2rem .4rem;border-radius:3px;}
+
+.post-content img,.posts-grid img{
+  max-width:100%;height:auto;display:block;
+  margin:1.5rem auto;border:1px solid #ff5555;
 }
 
-/* container più largo per farci stare sidebar + post affiancati */
-.container {
-  max-width: 1100px; /* prima 840 */
-  margin: 0 auto;
-  padding: 1rem;
-}
+/* footer */
+.footer{text-align:center;padding:2.2rem 1rem;font-size:.9rem;color:#b8c7c5;}
 
-.site-header {
-  text-align: center;
-  padding: 2.5rem 1rem;
-  animation: pulse 4s infinite alternate;
-}
+@keyframes pulse{from{text-shadow:0 0 6px #39ff14;}to{text-shadow:0 0 12px #39ff14;}}
 
-.site-title {
-  font-size: 2.4rem;
-  color: #39ff14;
-  text-shadow: 0 0 8px #39ff14;
-}
-
-.site-description {
-  color: #ff5555;
-  font-size: 1.1rem;
-}
-
-.nav {
-  margin-bottom: 1rem;
-}
-
-.nav-item {
-  margin: 0 0.6rem;
-}
-
-h1, h2, h3, h4 {
-  color: #39ff14;
-  text-shadow: 0 0 6px #39ff14;
-}
-
-.post-item time {
-  color: #ff5555;
-}
-
-.post-meta {
-  color: #ff5555;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
-/* Code blocks */
-pre {
-  overflow-x: auto;
-  background: #000;
-  padding: 1rem;
-  border-left: 4px solid #39ff14;
-  margin: 1.5rem 0;
-}
-
-pre code {
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
-  font-size: 0.9rem;
-  /* i colori vengono dal tema highlight.js */
-}
-
-/* Inline code */
-code {
-  background: #161b22;
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-}
-
-.footer {
-  text-align: center;
-  padding: 2.2rem 1rem;
-  font-size: 0.9rem;
-  color: #b8c7c5;
-}
-
-@keyframes pulse {
-  from { text-shadow: 0 0 6px #39ff14; }
-  to   { text-shadow: 0 0 12px #39ff14; }
-}
-
-/* --- v3.1 image alignment fix --- */
-.post-content img,
-.posts-list img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 1.5rem auto;     /* centro orizzontalmente */
-  border: 1px solid #ff5555;
-}
-
-/* ==== Sidebar layout patch ==== */
-.home-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-
-.posts-list {
-  flex: 1 1 60ch;          /* si restringe se serve */
-}
-
-.sidebar {
-  flex: 0 0 260px;
-  background: #161b22;
-  padding: 1rem;
-  border: 1px solid #39ff14;
-  border-radius: 8px;
-  color: #e5e9ea;
-}
-
-.profile-pic {
-  width: 100%;
-  border-radius: 50%;
-  margin-bottom: 1rem;
-  border: 2px solid #ff5555;
-}
-
-.author-name {
-  margin: 0;
-  color: #f0f6fc;
-}
-
-.sidebar .location {
-  font-size: 0.9rem;
-  color: #8b949e;
-}
-
-.sidebar .bio {
-  margin: 1rem 0;
-}
-
-.sidebar .social a {
-  color: #39ff14;
-  text-decoration: none;
-}
-
-.sidebar .social a:hover {
-  color: #ff5555;
-}
-
-/* ─── layout stabile a due colonne SOLO su desktop ─── */
-/* ─── layout sidebar fisso solo su desktop ─────────────────────── */
-@media (min-width: 1024px) {
-
-  /* container più largo per ospitare 260 px di sidebar */
-  .container { max-width: 1100px; }
-
-  /* due colonne stabili (post | sidebar) */
-  .home-grid {
-    display: grid;
-    grid-template-columns: 1fr 260px;
-    gap: 2rem;
-    align-items: start;
-  }
-
-  /* evita che i post forzino larghezza minima */
-  .posts-list { min-width: 0; }
-}
-
-/* fallback mobile/tablet */
-@media (max-width: 1023px) {
-  .home-grid { flex-direction: column; } /* oppure lasci grid, ma verticale */
-  .sidebar   { order: -1; }             /* sidebar sopra */
+/* ------------------------------------------------------------- */
+/* === RESPONSIVE (mobile / tablet) ============================ */
+/* ------------------------------------------------------------- */
+@media(max-width:900px){
+  .sidebar{position:static;width:100%;height:auto;border-right:none;border-bottom:4px solid #39ff14;}
+  .layout{margin-left:0;padding:1rem;}
+  .posts-grid{grid-template-columns:1fr;}       /* singola colonna */
 }
