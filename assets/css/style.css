@@ -1,112 +1,177 @@
 /* CyberSec Blog v3 – improved code highlighting & layout */
 body {
-  margin:0;
+  margin: 0;
   font-family: 'Source Code Pro', monospace;
-  background:#352e2e;
-  color:#ffffff;
-  line-height:1.6;
+  background: #352e2e;           /* sfondo lievemente schiarito */
+  color: #ffffff;                /* testo quasi bianco */
+  line-height: 1.6;
 }
+
 a {
-  color:#39ff14;
-  text-decoration:none;
-  transition:color .2s ease-in-out, text-shadow .2s;
+  color: #39ff14;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out, text-shadow 0.2s;
 }
+
 a:hover {
-  color:#ff5555;
-  text-shadow:0 0 6px #ff2222;
+  color: #ff5555;
+  text-shadow: 0 0 6px #ff2222;
 }
-.container { max-width: 840px; margin:0 auto; padding:1rem; }
-.site-header { text-align:center; padding:2.5rem 1rem; animation:pulse 4s infinite alternate; }
-.site-title { font-size:2.4rem; color:#39ff14; text-shadow:0 0 8px #39ff14; }
-.site-description { color:#ff5555; font-size:1.1rem; }
-.nav { margin-bottom:1rem; }
-.nav-item { margin:0 .6rem; }
-h1,h2,h3,h4 { color:#39ff14; text-shadow:0 0 6px #39ff14; }
-.post-item time { color:#ff5555; }
-.post-meta { color:#ff5555; font-size:.9rem; margin-bottom:1rem; }
+
+/* container più largo per farci stare sidebar + post affiancati */
+.container {
+  max-width: 1100px; /* prima 840 */
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.site-header {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  animation: pulse 4s infinite alternate;
+}
+
+.site-title {
+  font-size: 2.4rem;
+  color: #39ff14;
+  text-shadow: 0 0 8px #39ff14;
+}
+
+.site-description {
+  color: #ff5555;
+  font-size: 1.1rem;
+}
+
+.nav {
+  margin-bottom: 1rem;
+}
+
+.nav-item {
+  margin: 0 0.6rem;
+}
+
+h1, h2, h3, h4 {
+  color: #39ff14;
+  text-shadow: 0 0 6px #39ff14;
+}
+
+.post-item time {
+  color: #ff5555;
+}
+
+.post-meta {
+  color: #ff5555;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
 
 /* Code blocks */
 pre {
-  overflow-x:auto;
-  background:#000;
-  padding:1rem;
-  border-left:4px solid #39ff14;
-  margin:1.5rem 0;
+  overflow-x: auto;
+  background: #000;
+  padding: 1rem;
+  border-left: 4px solid #39ff14;
+  margin: 1.5rem 0;
 }
+
 pre code {
-  font-family:'IBM Plex Mono','Courier New',monospace;
-  font-size:0.9rem;
-  /* color left to highlight.js classes */
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-size: 0.9rem;
+  /* i colori vengono dal tema highlight.js */
 }
+
 /* Inline code */
 code {
-  background:#161b22;
-  padding:0.2rem 0.4rem;
-  border-radius:3px;
+  background: #161b22;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
 }
 
+.footer {
+  text-align: center;
+  padding: 2.2rem 1rem;
+  font-size: 0.9rem;
+  color: #b8c7c5;
 }
-
-.footer { text-align:center; padding:2.2rem 1rem; font-size:.9rem; color:#b8c7c5; }
 
 @keyframes pulse {
-  from { text-shadow:0 0 6px #39ff14; }
-  to { text-shadow:0 0 12px #39ff14; }
+  from { text-shadow: 0 0 6px #39ff14; }
+  to   { text-shadow: 0 0 12px #39ff14; }
 }
-
 
 /* --- v3.1 image alignment fix --- */
-.post-content img, .posts-list img {
-  max-width:100%;
-  height:auto;
-  display:block;
-  margin:1.5rem auto;     /* center horizontally */
-  border:1px solid #ff5555;
+.post-content img,
+.posts-list img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;     /* centro orizzontalmente */
+  border: 1px solid #ff5555;
 }
-
 
 /* ==== Sidebar layout patch ==== */
 .home-grid {
-  display:flex;
-  flex-wrap:wrap;
-  gap:2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
+
 .posts-list {
-  flex:1 1 60ch;
+  flex: 1 1 60ch;          /* si restringe se serve */
 }
+
 .sidebar {
-  flex:0 0 260px;
-  background:#161b22;
-  padding:1rem;
-  border:1px solid #39ff14;
-  border-radius:8px;
-  color:#e5e9ea;
+  flex: 0 0 260px;
+  background: #161b22;
+  padding: 1rem;
+  border: 1px solid #39ff14;
+  border-radius: 8px;
+  color: #e5e9ea;
 }
+
 .profile-pic {
-  width:100%;
-  border-radius:50%;
-  margin-bottom:1rem;
-  border:2px solid #ff5555;
+  width: 100%;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 2px solid #ff5555;
 }
+
 .author-name {
-  margin:0;
-  color:#f0f6fc;
+  margin: 0;
+  color: #f0f6fc;
 }
+
 .sidebar .location {
-  font-size:0.9rem;
-  color:#8b949e;
+  font-size: 0.9rem;
+  color: #8b949e;
 }
+
 .sidebar .bio {
-  margin:1rem 0;
+  margin: 1rem 0;
 }
+
 .sidebar .social a {
-  color:#39ff14;
-  text-decoration:none;
+  color: #39ff14;
+  text-decoration: none;
 }
+
 .sidebar .social a:hover {
-  color:#ff5555;
+  color: #ff5555;
 }
-@media(max-width: 768px){
-  .home-grid { flex-direction:column; }
-  .sidebar { order:-1; }
+
+/* ─── layout stabile a due colonne SOLO su desktop ─── */
+@media (min-width: 1024px) {
+  .home-grid {
+    display: grid;                     /* più robusto di flex per due colonne */
+    grid-template-columns: 1fr 260px;  /* post | sidebar */
+    gap: 2rem;
+    align-items: start;
+  }
+  .posts-list { min-width: 0; }        /* evita overflow */
+}
+
+/* Fallback mobile / tablet */
+@media (max-width: 1023px) {
+  .home-grid { flex-direction: column; }
+  .sidebar   { order: -1; }            /* sidebar sopra ai post */
 }
