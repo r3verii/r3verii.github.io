@@ -1,7 +1,7 @@
 /* CyberSec Blog v3 – improved code highlighting & layout */
 body {
   margin:0;
-  font-family:'IBM Plex Mono','Courier New',monospace;
+  font-family: 'Source Code Pro', monospace;
   background:#0b0e10;
   color:#b8c7c5;
   line-height:1.6;
