@@ -1,8 +1,9 @@
-/* CyberSec Blog v4.3 — sidebar fissa, home grid, article centrato --------- */
-:root { --sidebar-w: 280px; }
+/* CyberSec Blog v5 — sidebar fissa solo su home, post centrati ------------ */
+:root { --sidebar-w: 280px; }          /* larghezza barra laterale */
+
 
 /* ----------------------------------------------------------------------- */
-/*  BASICS                                                                 */
+/*  BASE                                                                   */
 /* ----------------------------------------------------------------------- */
 body{
   margin:0;
@@ -12,30 +13,33 @@ body{
   line-height:1.6;
 }
 
-/* layout a due colonne:  sidebar | contenuto  (>=900 px) */
-@media (min-width: 900px){
-  body{
-    display:grid;
-    grid-template-columns: var(--sidebar-w) 1fr;
-  }
-}
-
 a{color:#39ff14;text-decoration:none;transition:color .2s,text-shadow .2s;}
 a:hover{color:#ff5555;text-shadow:0 0 6px #ff2222;}
 
+h1,h2,h3,h4{color:#39ff14;text-shadow:0 0 6px #39ff14;}
+.post-item time{color:#ff5555;}
+.post-meta{color:#ff5555;font-size:.9rem;margin-bottom:1rem;}
+
+/* header / nav ----------------------------------------------------------- */
+.site-header{
+  text-align:center;padding:2.5rem 1rem;
+  animation:pulse 4s infinite alternate;
+}
+.site-title{font-size:2.4rem;color:#39ff14;text-shadow:0 0 8px #39ff14;}
+.site-description{color:#ff5555;font-size:1.1rem;}
+.nav{margin-bottom:1rem;}
+.nav-item{margin:0 .6rem;}
+
 /* ----------------------------------------------------------------------- */
-/*  SIDEBAR                                                                */
+/*  SIDEBAR  (appare solo nella home)                                      */
 /* ----------------------------------------------------------------------- */
 .sidebar{
-  grid-column:1;
-  position:fixed;        /* resta in vista */
-  top:0; left:0;
-  width:260px; height:100vh;
-  overflow-y:auto;
-  background:#161b22;
-  padding:1rem;
+  position:fixed;top:0;left:0;
+  width:260px;height:100vh;
+  background:#161b22;padding:1rem;
   border-right:4px solid #39ff14;
   color:#e5e9ea;
+  overflow-y:auto;
 }
 .profile-pic{width:100%;border-radius:50%;margin-bottom:1rem;border:2px solid #ff5555;}
 .author-name{margin:0;color:#f0f6fc;}
@@ -45,31 +49,36 @@ a:hover{color:#ff5555;text-shadow:0 0 6px #ff2222;}
 .social a:hover{color:#ff5555;}
 
 /* ----------------------------------------------------------------------- */
-/*  GLOBAL CONTAINER (main)                                                */
+/*  CONTAINER (valido per TUTTE le pagine)                                 */
 /* ----------------------------------------------------------------------- */
 .container{
-  grid-column:2;                    /* sempre nella colonna di destra       */
-  max-width:840px;                  /* larghezza massima, come all’inizio   */
-  margin:0 auto;                    /* centrato nello spazio disponibile    */
+  max-width:840px;             /* larghezza classica articolo */
+  margin:0 auto;               /* sempre centrato */
   padding:1rem;
 }
 
-/* header / nav ----------------------------------------------------------- */
-.site-header{text-align:center;padding:2.5rem 1rem;animation:pulse 4s infinite alternate;}
-.site-title{font-size:2.4rem;color:#39ff14;text-shadow:0 0 8px #39ff14;}
-.site-description{color:#ff5555;font-size:1.1rem;}
-.nav{margin-bottom:1rem;}
-.nav-item{margin:0 .6rem;}
-
-h1,h2,h3,h4{color:#39ff14;text-shadow:0 0 6px #39ff14;}
-.post-item time{color:#ff5555;}
-.post-meta{color:#ff5555;font-size:.9rem;margin-bottom:1rem;}
-
 /* ----------------------------------------------------------------------- */
-/*  HOME PAGE — griglia di card                                            */
+/*  HOME: layout griglia attivato con .home sul body                       */
 /* ----------------------------------------------------------------------- */
-.layout{padding:1rem 1.5rem;}       /* wrapper home (colonna 2 di default)  */
+body.home{
+  display:grid;
+  grid-template-columns: var(--sidebar-w) 1fr;   /* sidebar | contenuto */
+}
 
+/* header attraversa entrambe le colonne */
+body.home .site-header{
+  grid-column:1 / -1;
+  z-index:5;
+  padding-left:calc(var(--sidebar-w) + 1rem);    /* opz: commenta per centro puro */
+}
+
+/* wrapper che contiene sidebar+griglia post */
+body.home .layout{
+  grid-column:2;
+  padding:1rem 1.5rem;
+}
+
+/* griglia delle card post */
 .posts-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
@@ -88,17 +97,14 @@ h1,h2,h3,h4{color:#39ff14;text-shadow:0 0 6px #39ff14;}
 /* ----------------------------------------------------------------------- */
 /*  SINGOLO ARTICOLO                                                       */
 /* ----------------------------------------------------------------------- */
-.post{background:none;border:none;padding:0 0.5rem;}   /* niente riquadro */
+.post{background:none;border:none;padding:0 0.5rem;}  /* niente riquadro */
 
 /* ----------------------------------------------------------------------- */
 /*  CODE & IMAGES                                                          */
 /* ----------------------------------------------------------------------- */
 pre{
-  overflow-x:auto;
-  background:#000;
-  padding:1rem;
-  border-left:4px solid #39ff14;
-  margin:1.5rem 0;
+  overflow-x:auto;background:#000;padding:1rem;
+  border-left:4px solid #39ff14;margin:1.5rem 0;
 }
 pre code{
   font-family:'IBM Plex Mono','Courier New',monospace;
@@ -107,11 +113,8 @@ pre code{
 code{background:#161b22;padding:.2rem .4rem;border-radius:3px;}
 
 .post-content img,.posts-grid img{
-  max-width:100%;
-  height:auto;
-  display:block;
-  margin:1.5rem auto;
-  border:1px solid #ff5555;
+  max-width:100%;height:auto;display:block;
+  margin:1.5rem auto;border:1px solid #ff5555;
 }
 
 /* footer ---------------------------------------------------------------- */
@@ -122,35 +125,12 @@ code{background:#161b22;padding:.2rem .4rem;border-radius:3px;}
 /* ----------------------------------------------------------------------- */
 /*  MOBILE / TABLET                                                        */
 /* ----------------------------------------------------------------------- */
-/* ---- HEADER visibile sopra sidebar + contenuto ------------------------- */
-/* … [tutto il contenuto di v4.3 invariato sopra] … */
-
-/* ----------------------------------------------------------------------- */
-/*  MOBILE / TABLET                                                        */
-/* ----------------------------------------------------------------------- */
-@media (min-width: 900px){
-  body.has-sidebar{
-    display: grid;
-    grid-template-columns: var(--sidebar-w) 1fr;   /* sidebar | contenuto */
+@media(max-width:900px){
+  body.home{display:block;}       /* disattiva grid su schermi stretti   */
+  .sidebar{
+    position:static;width:100%;height:auto;
+    border-right:none;border-bottom:4px solid #39ff14;
   }
-
-  /* l’header deve comunque attraversare entrambe le colonne */
-  body.has-sidebar .site-header{
-    grid-column: 1 / -1;
-    z-index: 5;
-    padding-left: calc(var(--sidebar-w) + 1rem);
-  }
+  body.home .site-header{padding-left:1rem;}  /* ri-centra header mobile */
+  .posts-grid{grid-template-columns:1fr;}
 }
-
-/* ----------------------------------------------------------------------- */
-/*  HEADER FIX  (visible across columns)                                   */
-/* ----------------------------------------------------------------------- */
-@media (min-width: 900px){
-  .site-header{
-    grid-column: 1 / -1;                 /* attraversa entrambe le colonne */
-    z-index: 5;
-    padding-left: calc(var(--sidebar-w) + 1rem); /* allinea testo se vuoi */
-  }
-}
-
-
