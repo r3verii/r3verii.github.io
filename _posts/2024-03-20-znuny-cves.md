@@ -18,7 +18,7 @@ categories: [cve]
 
 **Premise** : In default installations (that use the DB module for cached file uploads), this vulnerability is not present. So to exploit this vulnerability , you need to set `Kernel::System::Web::UploadCache::FS`
 
-![]({{ page.img_dir | relative_url }}/Easy_Mergers_v0.1/images/image.png)
+![]({{ page.img_dir | relative_url }}/image.png)
 
 The vulnerability is in the creation/editing form of a ticket, where an attachment can be uploaded.
 
@@ -55,17 +55,17 @@ As we see from the code, the `FormIDAddFile` function takes the filename from th
 
 This is an example of a malicious request that allows the attacker to upload a file to any location on the system (as long as it has write permissions) , in this case I am uploading to the `../../../../../../../opt/znuny-7.0.15/var/httpd/htdocs/js/js-cache/<filename>` (Path traversal in the filename) which is an externally reachable static js file directory.
 
-![]({{ page.img_dir | relative_url }}/Easy_Mergers_v0.1/images/image3.png)
+![]({{ page.img_dir | relative_url }}/image3.png)
 
-![]({{ page.img_dir | relative_url }}/Easy_Mergers_v0.1/images/image4.png)
+![]({{ page.img_dir | relative_url }}/image4.png)
 
 In this case I loaded a very simple webshell that allows me to run os commands on the host (RCE)
 
 To mitigate this vuln just use the function basename() :
 
-![]({{ page.img_dir | relative_url }}/Easy_Mergers_v0.1/images/image.jpg)
+![]({{ page.img_dir | relative_url }}/image.jpg)
 
-![]({{ page.img_dir | relative_url }}/Easy_Mergers_v0.1/images/image2.jpg)
+![]({{ page.img_dir | relative_url }}/image2.jpg)
 
 
 ---
@@ -110,9 +110,9 @@ sub FormIDCleanUp {
 
 The `FormIDCleanUp()` function is triggered by a cronjob every hour (for testing purposes I reduced the time to 1 minute) and deletes all cached ticket attachment files with a timestamp older than 24h , excluding files in draft forms , so it is possible to inject a malicious query into the `FormID` of the draft forms
 
-![]({{ page.img_dir | relative_url }}/Easy_Mergers_v0.1/images/image6.png)
+![]({{ page.img_dir | relative_url }}/image6.png)
 
-![]({{ page.img_dir | relative_url }}/Easy_Mergers_v0.1/images/image7.png)
+![]({{ page.img_dir | relative_url }}/image7.png)
 
 with this example query the malicious FormID will be saved and when the cronjob will trigger the function `FormIDCleanUp()` the where condition will always be true and it will delete all cached files including those with date less than 24h ago and those present in all draft forms.
 
@@ -126,7 +126,7 @@ Second-order SQL injection occurs when the application takes user input from an 
 Below is an example of what the SQL variable contains , I modified the source code a bit by inserting some debug logs to follow the flow and read the contents of the variables :
 
 
-![]({{ page.img_dir | relative_url }}/Easy_Mergers_v0.1/images/image8.png)
+![]({{ page.img_dir | relative_url }}/image8.png)
 
 The complexity of the exploit reduces the criticality of vuln.
 In the above example case I simply used a payload that makes DELETE always TRUE and deletes files but could turn into a data exfiltration.
@@ -144,6 +144,6 @@ In the above example case I simply used a payload that makes DELETE always TRUE 
 
 The ticket detail view on the customer front allows the execution of external JavaScript.
 
-![]({{ page.img_dir | relative_url }}/Easy_Mergers_v0.1/images/image9.png)
+![]({{ page.img_dir | relative_url }}/image9.png)
 
-![]({{ page.img_dir | relative_url }}/Easy_Mergers_v0.1/images/image10.png)
+![]({{ page.img_dir | relative_url }}/image10.png)
