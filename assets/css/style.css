@@ -1,4 +1,9 @@
-/* CyberSec Blog v4.1 — sidebar fissa + grid + fix articoli ----------------- */
+/* CyberSec Blog v4.2 ------------------------------------------------------- */
+:root { --sidebar-w: 280px; }
+
+/* ------------------------------------------------------------------------- */
+/* BASE                                                                      */
+/* ------------------------------------------------------------------------- */
 body{
   margin:0;
   font-family:'Source Code Pro',monospace;
@@ -7,24 +12,34 @@ body{
   line-height:1.6;
 }
 
-/* --- link ----------------------------------------------------------------- */
+/* offset globale per lasciare spazio alla sidebar su desktop */
+@media (min-width: 900px){
+  body{ padding-left: var(--sidebar-w); }
+}
+
 a{color:#39ff14;text-decoration:none;transition:color .2s,text-shadow .2s;}
 a:hover{color:#ff5555;text-shadow:0 0 6px #ff2222;}
 
-/* --- header / nav --------------------------------------------------------- */
+/* header ------------------------------------------------------------------ */
 .site-header{text-align:center;padding:2.5rem 1rem;animation:pulse 4s infinite alternate;}
 .site-title{font-size:2.4rem;color:#39ff14;text-shadow:0 0 8px #39ff14;}
 .site-description{color:#ff5555;font-size:1.1rem;}
 .nav{margin-bottom:1rem;}
 .nav-item{margin:0 .6rem;}
 
-/* --- typography ----------------------------------------------------------- */
 h1,h2,h3,h4{color:#39ff14;text-shadow:0 0 6px #39ff14;}
 .post-item time{color:#ff5555;}
 .post-meta{color:#ff5555;font-size:.9rem;margin-bottom:1rem;}
 
+/* container: ora centrato ovunque ---------------------------------------- */
+.container{
+  max-width:840px;          /* valore iniziale */
+  margin:0 auto;            /* centrato rispetto allo spazio libero */
+  padding:1rem;
+}
+
 /* ------------------------------------------------------------------------- */
-/* === SIDEBAR FISSA A SINISTRA ============================================ */
+/* SIDEBAR FISSA A SINISTRA                                                  */
 /* ------------------------------------------------------------------------- */
 .sidebar{
   position:fixed;top:0;left:0;
@@ -40,30 +55,10 @@ h1,h2,h3,h4{color:#39ff14;text-shadow:0 0 6px #39ff14;}
 .social a:hover{color:#ff5555;}
 
 /* ------------------------------------------------------------------------- */
-/* === LAYOUT PAGINE ======================================================== */
+/* HOME PAGE: layout + card grid                                             */
 /* ------------------------------------------------------------------------- */
+.layout{margin-left:0;padding:1rem 1.5rem;}          /* niente offset: gestito dal body */
 
-/* wrapper home (griglia) */
-.layout{margin-left:280px;padding:1rem 1.5rem;}
-
-/* contenitore globale per tutte le pagine */
-.container{
-  max-width:1100px;
-  margin:0 auto;
-  padding:1rem;
-  /* spostiamo tutto a destra della sidebar su desktop */
-  margin-left:280px;
-}
-
-/* card singolo articolo */
-.post{
-  background:#252121;
-  padding:2rem;
-  border:1px solid #39ff14;
-  border-radius:8px;
-}
-
-/* griglia dei post in home */
 .posts-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
@@ -80,7 +75,17 @@ h1,h2,h3,h4{color:#39ff14;text-shadow:0 0 6px #39ff14;}
 .read-more{color:#39ff14;font-size:.9rem;}
 
 /* ------------------------------------------------------------------------- */
-/* === CODE & IMAGES ======================================================== */
+/* ARTICOLO SINGOLO                                                          */
+/* ------------------------------------------------------------------------- */
+.post{
+  /* rimuovo bordo & bg, lascio un solo padding orizzontale leggero */
+  background:none;
+  border:none;
+  padding:0 0.5rem;
+}
+
+/* ------------------------------------------------------------------------- */
+/* CODE & IMAGES                                                             */
 /* ------------------------------------------------------------------------- */
 pre{
   overflow-x:auto;background:#000;padding:1rem;
@@ -96,17 +101,19 @@ code{background:#161b22;padding:.2rem .4rem;border-radius:3px;}
   margin:1.5rem auto;border:1px solid #ff5555;
 }
 
-/* footer */
+/* footer ------------------------------------------------------------------ */
 .footer{text-align:center;padding:2.2rem 1rem;font-size:.9rem;color:#b8c7c5;}
 
 @keyframes pulse{from{text-shadow:0 0 6px #39ff14;}to{text-shadow:0 0 12px #39ff14;}}
 
 /* ------------------------------------------------------------------------- */
-/* === RESPONSIVE (mobile / tablet) ======================================== */
+/* RESPONSIVE                                                                */
 /* ------------------------------------------------------------------------- */
 @media(max-width:900px){
-  .sidebar{position:static;width:100%;height:auto;border-right:none;border-bottom:4px solid #39ff14;}
-  .layout{margin-left:0;padding:1rem;}
-  .container{margin-left:0;}            /* niente offset a < 900px */
+  body{ padding-left:0; }
+  .sidebar{
+    position:static;width:100%;height:auto;
+    border-right:none;border-bottom:4px solid #39ff14;
+  }
   .posts-grid{grid-template-columns:1fr;}
 }
