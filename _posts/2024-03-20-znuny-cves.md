@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Znuny OTRS CVEs : CVE-2024-32491, CVE-2024-32492, CVE-2024-32493"
-date: 2024-03-08T08:14:54+00:00
+date: 2024-03-20T08:14:54+00:00
 img_dir: "/assets/2024-03-20-znuny-cves/images"
 description: "In this post I detail two critical security flaws I discovered last year in the Znuny / OTRS ticket-ing system: a path-traversal file-upload bug that can be leveraged for remote code execution, and a time-based SQL injection in the draft-form cleanup routine. The write-up walks through root cause analysis, step-by-step PoCs, impact, official patches, and mitigation tips for administrators who are still running unpatched instances."
 categories: [cve]
