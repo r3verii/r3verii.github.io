@@ -16,7 +16,7 @@ tags:
 
 #### About Me: 
 
-In the last 2 months I have been focusing on finding vulnerabilities on Wordpress plugins and with my colleague Paolo Elia we got more than 50 CVEs 
+In the last 2 months I have been focusing on finding vulnerabilities on Wordpress plugins and i got more than 100 CVEs 
 
 In this post I will show and explain some of the most interesting vulnerabilities found, I will try to explain everything in detail but for an easier understanding knowledge of PHP and Wordpress is needed 
 
