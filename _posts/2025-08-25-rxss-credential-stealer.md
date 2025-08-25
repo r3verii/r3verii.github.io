@@ -8,7 +8,7 @@ categories: [bugbounty]
 ---
 ![Cover]({{ page.img_dir | relative_url }}/cover.png) 
 
-# From "Low-Impact" RXSS to Credential Stealer: A JS-in-JS Walkthrough
+
 
 Ethical note: the following is for educational purposes and documents a real case in an authorized context (bug bounty). Do not perform attacks on systems without permission.
 
