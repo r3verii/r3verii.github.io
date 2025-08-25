@@ -54,7 +54,7 @@ Which is reflected in this way :
 </script>
 ```
 
-Before proceeding with the exploit there is a clarification to be made the webapp has a WAF system in front that recognizes possible malicious javascript patterns (alert/eval etc.) and blocks requests
+Before proceeding with the exploit there is a clarification to be made the webapp has a WAF system in front that recognizes possible malicious javascript patterns (alert/eval etc.) and blocks requests. 
 So to bypass this control, unicode was used in this way :
 
 ```javascript
