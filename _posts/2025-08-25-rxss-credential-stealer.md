@@ -49,7 +49,7 @@ Which is reflected in this way :
 ```html
 <script>
     /* ... */
-    var AspInterfaceLanguage = "test"<INJCETION>;a="";
+    var AspInterfaceLanguage = "test"<INJECTION>;a="";
     /* ... */
 </script>
 ```
