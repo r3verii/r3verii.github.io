@@ -1,6 +1,36 @@
 (function () {
   'use strict';
 
+  /* ---- Mouse glow effect ---- */
+  var glowActive = false;
+  var rafId = null;
+  var mx = 0;
+  var my = 0;
+
+  document.addEventListener('mousemove', function (e) {
+    mx = e.clientX;
+    my = e.clientY;
+
+    if (!glowActive) {
+      glowActive = true;
+      document.body.classList.add('glow-active');
+    }
+
+    if (!rafId) {
+      rafId = requestAnimationFrame(function () {
+        document.body.style.setProperty('--glow-x', mx + 'px');
+        document.body.style.setProperty('--glow-y', my + 'px');
+        rafId = null;
+      });
+    }
+  });
+
+  document.addEventListener('mouseleave', function () {
+    glowActive = false;
+    document.body.classList.remove('glow-active');
+  });
+
+  /* ---- Sidebar toggle ---- */
   var hamburger = document.querySelector('.hamburger');
   var sidebar = document.querySelector('.sidebar');
   var overlay = document.querySelector('.sidebar-overlay');
