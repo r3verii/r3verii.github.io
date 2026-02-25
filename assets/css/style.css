@@ -1,136 +1,481 @@
-/* CyberSec Blog v5 — sidebar fissa solo su home, post centrati ------------ */
-:root { --sidebar-w: 280px; }          /* larghezza barra laterale */
+/* ======================================================================
+   CyberSec Notes — Minimal Dark Theme (mobile-first)
+   ====================================================================== */
 
-
-/* ----------------------------------------------------------------------- */
-/*  BASE                                                                   */
-/* ----------------------------------------------------------------------- */
-body{
-  margin:0;
-  font-family:'Source Code Pro',monospace;
-  background:#352e2e;
-  color:#ffffff;
-  line-height:1.6;
+/* --- Custom Properties ------------------------------------------------ */
+:root {
+  --sidebar-w: 280px;
+  --bg-canvas:      #0d1117;
+  --bg-surface:     #161b22;
+  --bg-overlay:     #1c2128;
+  --border:         #30363d;
+  --border-muted:   #21262d;
+  --text-primary:   #e6edf3;
+  --text-secondary: #8b949e;
+  --text-tertiary:  #6e7681;
+  --accent:         #58a6ff;
+  --accent-hover:   #79c0ff;
+  --tag-green-bg:   #0d3320;
+  --tag-green-text: #3fb950;
+  --danger:         #f85149;
 }
 
-a{color:#39ff14;text-decoration:none;transition:color .2s,text-shadow .2s;}
-a:hover{color:#ff5555;text-shadow:0 0 6px #ff2222;}
+/* --- Reset & Base ----------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
 
-h1,h2,h3,h4{color:#39ff14;text-shadow:0 0 6px #39ff14;}
-.post-item time{color:#ff5555;}
-.post-meta{color:#ff5555;font-size:.9rem;margin-bottom:1rem;}
-
-/* header / nav ----------------------------------------------------------- */
-.site-header{
-  text-align:center;padding:2.5rem 1rem;
-  animation:pulse 4s infinite alternate;
-}
-.site-title{font-size:2.4rem;color:#39ff14;text-shadow:0 0 8px #39ff14;}
-.site-description{color:#ff5555;font-size:1.1rem;}
-.nav{margin-bottom:1rem;}
-.nav-item{margin:0 .6rem;}
-
-/* ----------------------------------------------------------------------- */
-/*  SIDEBAR  (appare solo nella home)                                      */
-/* ----------------------------------------------------------------------- */
-.sidebar{
-  position:fixed;top:0;left:0;
-  width:260px;height:100vh;
-  background:#161b22;padding:1rem;
-  border-right:4px solid #39ff14;
-  color:#e5e9ea;
-  overflow-y:auto;
-}
-.profile-pic{width:100%;border-radius:50%;margin-bottom:1rem;}
-.author-name{margin:0;color:#f0f6fc;}
-.location{font-size:.9rem;color:#8b949e;margin:0 0 1rem;}
-.bio{margin:0 0 1.5rem;}
-.social a{color:#39ff14;}
-.social a:hover{color:#ff5555;}
-
-/* ----------------------------------------------------------------------- */
-/*  CONTAINER (valido per TUTTE le pagine)                                 */
-/* ----------------------------------------------------------------------- */
-.container{
-  max-width:840px;             /* larghezza classica articolo */
-  margin:0 auto;               /* sempre centrato */
-  padding:1rem;
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ----------------------------------------------------------------------- */
-/*  HOME: layout griglia attivato con .home sul body                       */
-/* ----------------------------------------------------------------------- */
-body.home{
-  display:grid;
-  grid-template-columns: var(--sidebar-w) 1fr;   /* sidebar | contenuto */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover { color: var(--accent-hover); }
+
+h1, h2, h3, h4 {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+
+img { max-width: 100%; height: auto; }
+
+/* --- Sidebar ---------------------------------------------------------- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  overflow-y: auto;
+  z-index: 100;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-/* header attraversa entrambe le colonne */
-body.home .site-header{
-  grid-column:1 / -1;
-  z-index:5;
-  padding-left:calc(var(--sidebar-w) + 1rem);    /* opz: commenta per centro puro */
+.sidebar.is-open {
+  transform: translateX(0);
 }
 
-/* wrapper che contiene sidebar+griglia post */
-body.home .layout{
-  grid-column:2;
-  padding:1rem 1.5rem;
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: block;
+  border: 2px solid var(--border);
 }
 
-/* griglia delle card post */
-.posts-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
-  gap:2rem;
-}
-.post-card{
-  background:#252121;
-  padding:1.5rem;
-  border:1px solid #39ff14;
-  border-radius:8px;
-}
-.post-card h2{margin-top:0;}
-.post-card .excerpt{color:#b8c7c5;margin:.6rem 0 1rem;}
-.read-more{color:#39ff14;font-size:.9rem;}
-
-/* ----------------------------------------------------------------------- */
-/*  SINGOLO ARTICOLO                                                       */
-/* ----------------------------------------------------------------------- */
-.post{background:none;border:none;padding:0 0.5rem;}  /* niente riquadro */
-
-/* ----------------------------------------------------------------------- */
-/*  CODE & IMAGES                                                          */
-/* ----------------------------------------------------------------------- */
-pre{
-  overflow-x:auto;background:#000;padding:1rem;
-  border-left:4px solid #39ff14;margin:1.5rem 0;
-}
-pre code{
-  font-family:'IBM Plex Mono','Courier New',monospace;
-  font-size:.9rem;
-}
-code{background:#161b22;padding:.2rem .4rem;border-radius:3px;}
-
-.post-content img,.posts-grid img{
-  max-width:100%;height:auto;display:block;
-  margin:1.5rem auto;border:1px solid #ff5555;
+.author-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
 }
 
-/* footer ---------------------------------------------------------------- */
-.footer{text-align:center;padding:2.2rem 1rem;font-size:.9rem;color:#b8c7c5;}
+.author-handle {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
 
-@keyframes pulse{from{text-shadow:0 0 6px #39ff14;}to{text-shadow:0 0 12px #39ff14;}}
+.author-location {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
 
-/* ----------------------------------------------------------------------- */
-/*  MOBILE / TABLET                                                        */
-/* ----------------------------------------------------------------------- */
-@media(max-width:900px){
-  body.home{display:block;}       /* disattiva grid su schermi stretti   */
-  .sidebar{
-    position:static;width:100%;height:auto;
-    border-right:none;border-bottom:4px solid #39ff14;
+.author-bio {
+  margin: 1rem 0 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-nav a {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+  background: var(--bg-overlay);
+  color: var(--accent);
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.social-links a {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.social-links a:hover {
+  color: var(--accent);
+}
+
+/* --- Sidebar Overlay -------------------------------------------------- */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+.sidebar-overlay.is-visible {
+  display: block;
+}
+
+/* --- Page Wrapper ----------------------------------------------------- */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Header & Nav ----------------------------------------------------- */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-surface);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.site-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.site-title:hover {
+  color: var(--accent);
+}
+
+.nav {
+  margin-left: auto;
+  display: flex;
+  gap: 1.25rem;
+}
+
+.nav-item {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.nav-item:hover {
+  color: var(--accent);
+}
+
+/* --- Hamburger Button ------------------------------------------------- */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  flex-shrink: 0;
+}
+
+.hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+body.sidebar-open .hamburger span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+body.sidebar-open .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+
+body.sidebar-open .hamburger span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --- Content Area ----------------------------------------------------- */
+.content {
+  flex: 1;
+  padding: 1.5rem 1.25rem;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* --- Posts Grid (homepage) -------------------------------------------- */
+.posts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.post-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  transition: border-color 0.2s ease;
+}
+
+.post-card:hover {
+  border-color: var(--accent);
+}
+
+.post-card h2 {
+  font-size: 1.15rem;
+  margin: 0.4rem 0;
+  font-weight: 600;
+}
+
+.post-card h2 a {
+  color: var(--text-primary);
+}
+
+.post-card h2 a:hover {
+  color: var(--accent);
+}
+
+.post-card .excerpt {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0 0 0.5rem;
+}
+
+.post-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.post-card-meta time {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.post-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.15em 0.6em;
+  border-radius: 12px;
+  background: var(--tag-green-bg);
+  color: var(--tag-green-text);
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+/* --- Single Post / Article -------------------------------------------- */
+.post { padding: 0; }
+
+.post-header { margin-bottom: 2rem; }
+
+.post-title {
+  font-size: 1.75rem;
+  margin: 0 0 0.5rem;
+  line-height: 1.3;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.post-content {
+  max-width: 720px;
+  line-height: 1.8;
+}
+
+.post-content h2 { margin-top: 2em; }
+.post-content h3 { margin-top: 1.5em; }
+.post-content p { margin: 1em 0; }
+
+.post-content ul,
+.post-content ol {
+  padding-left: 1.5rem;
+  margin: 1em 0;
+}
+
+.post-content li { margin: 0.3em 0; }
+
+.post-content img {
+  display: block;
+  margin: 1.5rem 0;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.post-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 1.5rem 0;
+  padding: 0.5rem 1rem;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  border-radius: 0 6px 6px 0;
+}
+
+/* --- Code Blocks ------------------------------------------------------ */
+pre {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+pre code {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.875rem;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+code {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.85em;
+  background: var(--bg-overlay);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+.hljs {
+  background: var(--bg-surface) !important;
+}
+
+/* --- Footer ----------------------------------------------------------- */
+.site-footer {
+  text-align: center;
+  padding: 2rem 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+/* --- Tables ----------------------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  display: block;
+}
+
+th, td {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+th {
+  background: var(--bg-surface);
+  font-weight: 600;
+}
+
+/* --- Horizontal Rule -------------------------------------------------- */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+/* ======================================================================
+   Tablet (>= 768px)
+   ====================================================================== */
+@media (min-width: 768px) {
+  .posts-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  body.home .site-header{padding-left:1rem;}  /* ri-centra header mobile */
-  .posts-grid{grid-template-columns:1fr;}
+
+  .content {
+    padding: 2rem;
+  }
+
+  .post-title {
+    font-size: 2rem;
+  }
+}
+
+/* ======================================================================
+   Desktop (>= 1024px) — sidebar always visible
+   ====================================================================== */
+@media (min-width: 1024px) {
+  .sidebar {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    display: none !important;
+  }
+
+  .page-wrapper {
+    margin-left: var(--sidebar-w);
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .content {
+    padding: 2rem 2.5rem;
+  }
 }

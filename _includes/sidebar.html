@@ -1,0 +1,23 @@
+<aside class="sidebar">
+  <img src="{{ site.author.avatar }}"
+       alt="{{ site.author.name }}" class="profile-pic">
+
+  <h3 class="author-name">{{ site.author.name }}</h3>
+  <p class="author-handle">@{{ site.author.handle }}</p>
+  <p class="author-location">{{ site.author.location }}</p>
+  <p class="author-bio">{{ site.author.bio }}</p>
+
+  <nav class="sidebar-nav">
+    <a href="{{ '/' | relative_url }}">Home</a>
+    <a href="{{ '/about' | relative_url }}">About</a>
+  </nav>
+
+  <div class="social-links">
+    {% if site.author.linkedin %}
+      <a href="{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+    {% endif %}
+    {% if site.author.github %}
+      <a href="{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a>
+    {% endif %}
+  </div>
+</aside>

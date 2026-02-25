@@ -1,9 +1,14 @@
 <header class="site-header">
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
+
   <nav class="nav">
     <a class="nav-item" href="{{ '/' | relative_url }}">Home</a>
     <a class="nav-item" href="{{ '/about' | relative_url }}">About</a>
-    <a class="nav-item" href="{{ site.github.repository_url }}">GitHub</a>
   </nav>
-  <h1 class="site-title">{{ site.title }}</h1>
-  <p class="site-description">{{ site.description }}</p>
 </header>

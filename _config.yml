@@ -9,5 +9,10 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 author:
-  name: "Martino Spagnuolo          ( r3verii )"
+  name: "Martino Spagnuolo"
+  handle: "r3verii"
   bio: "Cybersec researcher, CTF player and bug hunter."
+  location: "Italy 🇮🇹"
+  avatar: "https://avatars.githubusercontent.com/u/143962203?v=4"
+  linkedin: "https://www.linkedin.com/in/martino-spagnuolo/"
+  github: "https://github.com/r3verii"
