@@ -1,23 +1,66 @@
 <aside class="sidebar">
-  <img src="{{ site.author.avatar }}"
-       alt="{{ site.author.name }}" class="profile-pic">
+  <div class="sidebar-header">
+    <div class="sidebar-window-controls">
+      <span class="win-dot win-dot-close"></span>
+      <span class="win-dot win-dot-min"></span>
+      <span class="win-dot win-dot-max"></span>
+    </div>
+  </div>
 
-  <h3 class="author-name">{{ site.author.name }}</h3>
-  <p class="author-handle">@{{ site.author.handle }}</p>
-  <p class="author-location">{{ site.author.location }}</p>
-  <p class="author-bio">{{ site.author.bio }}</p>
+  <div class="sidebar-profile">
+    <img src="{{ site.author.avatar }}"
+         alt="{{ site.author.name }}" class="profile-pic">
+    <h3 class="author-name">{{ site.author.name }}</h3>
+    <p class="author-handle">@{{ site.author.handle }}</p>
+    <p class="author-location">{{ site.author.location }}</p>
+    <p class="author-bio">{{ site.author.bio }}</p>
+  </div>
 
+  <div class="sidebar-section-label">Places</div>
   <nav class="sidebar-nav">
-    <a href="{{ '/' | relative_url }}">Home</a>
-    <a href="{{ '/about' | relative_url }}">About</a>
+    <a href="{{ '/' | relative_url }}"><span class="sidebar-icon">&#128193;</span> Home</a>
+    <a href="{{ '/about' | relative_url }}"><span class="sidebar-icon">&#128196;</span> About</a>
   </nav>
 
+  <div class="sidebar-section-label">Files</div>
+  <nav class="folder-tree">
+    {% assign sorted_cats = site.categories | sort %}
+    {% for cat in sorted_cats %}
+      {% assign cat_name = cat[0] %}
+      {% assign cat_posts = cat[1] | sort: 'date' | reverse %}
+      {% assign is_open = false %}
+      {% if page.categories contains cat_name %}{% assign is_open = true %}{% endif %}
+      <details class="folder"{% if is_open %} open{% endif %}>
+        <summary class="folder-label">
+          <span class="folder-icon folder-icon-closed">&#128193;</span>
+          <span class="folder-icon folder-icon-open">&#128194;</span>
+          <span class="folder-name">{{ cat_name }}</span>
+          <span class="folder-count">{{ cat_posts.size }}</span>
+        </summary>
+        <div class="folder-contents">
+          {% for post in cat_posts %}
+            <a href="{{ post.url | relative_url }}"
+               class="file-item{% if page.url == post.url %} active{% endif %}">
+              <span class="file-icon">&#128196;</span>
+              <span class="file-name">{{ post.title | truncate: 40 }}</span>
+            </a>
+          {% endfor %}
+        </div>
+      </details>
+    {% endfor %}
+  </nav>
+
+  <div class="sidebar-section-label">Bookmarks</div>
   <div class="social-links">
     {% if site.author.linkedin %}
-      <a href="{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="{{ site.author.linkedin }}" target="_blank" rel="noopener">
+        <span class="sidebar-icon">&#127760;</span> LinkedIn
+      </a>
     {% endif %}
     {% if site.author.github %}
-      <a href="{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a>
+      <a href="{{ site.author.github }}" target="_blank" rel="noopener">
+        <span class="sidebar-icon">&#128187;</span> GitHub
+      </a>
     {% endif %}
   </div>
 </aside>

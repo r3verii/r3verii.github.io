@@ -24,3 +24,6 @@ desktop.ini
 
 # Environment
 .env
+
+# Local preview
+preview.html

@@ -2,18 +2,28 @@
 layout: default
 ---
 <article class="post">
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <div class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">
-        {{ page.date | date: "%B %-d, %Y" }}
-      </time>
-      {% for cat in page.categories %}
-        <span class="post-tag">{{ cat }}</span>
-      {% endfor %}
+  <div class="post-window">
+    <div class="post-window-bar">
+      <span class="win-dot win-dot-close"></span>
+      <span class="win-dot win-dot-min"></span>
+      <span class="win-dot win-dot-max"></span>
+      <span class="post-window-title">{{ page.title | truncate: 60 }}</span>
     </div>
-  </header>
-  <div class="post-content">
-    {{ content }}
+    <div class="post-window-content">
+      <header class="post-header">
+        <h1 class="post-title">{{ page.title }}</h1>
+        <div class="post-meta">
+          <time datetime="{{ page.date | date_to_xmlschema }}">
+            {{ page.date | date: "%B %-d, %Y" }}
+          </time>
+          {% for cat in page.categories %}
+            <span class="post-tag">{{ cat }}</span>
+          {% endfor %}
+        </div>
+      </header>
+      <div class="post-content">
+        {{ content }}
+      </div>
+    </div>
   </div>
 </article>

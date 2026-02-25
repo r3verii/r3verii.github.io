@@ -3,6 +3,8 @@ description: "CTF write‑ups, CVEs and Bug Bounty findings"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://r3verii.github.io" # replace with your GitHub username
 markdown: kramdown
+kramdown:
+  syntax_highlighter: none
 theme: null
 plugins:
   - jekyll-feed

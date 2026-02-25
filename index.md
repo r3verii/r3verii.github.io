@@ -17,7 +17,7 @@ title: Home
       <h2>
         <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
       </h2>
-      <p class="excerpt">{{ post.description | strip_html | truncate: 160 }}</p>
+      <p class="excerpt">{{ post.description | strip_html | truncate: 150 }}</p>
     </article>
   {% endfor %}
 </section>
