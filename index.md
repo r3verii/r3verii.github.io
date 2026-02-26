@@ -2,7 +2,11 @@
 layout: default
 title: Home
 description: "CTF write-ups, CVEs and Bug Bounty findings by Martino Spagnuolo (@r3verii)"
-image: "/assets/img/og-home.png"
+image:
+  path: "/assets/img/og-home.png"
+  width: 1200
+  height: 630
+  alt: "CyberSec Notes — Martino Spagnuolo (@r3verii)"
 ---
 
 <section class="posts-grid">
