@@ -439,7 +439,7 @@ body.sidebar-open .hamburger span:nth-child(3) { transform: translateY(-5px) rot
 .content {
   flex: 1;
   padding: 20px 16px;
-  max-width: 880px;
+  max-width: 1060px;
   width: 100%;
   margin: 0 auto;
 }
@@ -455,7 +455,7 @@ body.sidebar-open .hamburger span:nth-child(3) { transform: translateY(-5px) rot
   background: var(--ubuntu-surface);
   border: 1px solid var(--ubuntu-border);
   border-radius: var(--radius);
-  padding: 16px 18px;
+  padding: 20px 22px;
   transition: box-shadow 0.2s, transform 0.15s;
   cursor: pointer;
 }
@@ -467,9 +467,9 @@ body.sidebar-open .hamburger span:nth-child(3) { transform: translateY(-5px) rot
 }
 
 .post-card h2 {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
-  margin: 6px 0 8px;
+  margin: 8px 0 10px;
   line-height: 1.35;
 }
 
@@ -481,8 +481,8 @@ body.sidebar-open .hamburger span:nth-child(3) { transform: translateY(-5px) rot
 
 .post-card .excerpt {
   color: var(--ubuntu-text-2);
-  font-size: 13px;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 1.45;
   margin: 0;
 }
 
@@ -493,12 +493,12 @@ body.sidebar-open .hamburger span:nth-child(3) { transform: translateY(-5px) rot
 }
 
 .post-card-meta time {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ubuntu-text-3);
 }
 
 .post-tag {
-  font-size: 11px;
+  font-size: 12px;
   padding: 2px 8px;
   border-radius: 10px;
   background: var(--ubuntu-selection);
@@ -539,7 +539,7 @@ body.sidebar-open .hamburger span:nth-child(3) { transform: translateY(-5px) rot
 }
 
 .post-window-content {
-  padding: 20px 24px;
+  padding: 20px 18px;
 }
 
 .post-header {
@@ -599,6 +599,63 @@ body.sidebar-open .hamburger span:nth-child(3) { transform: translateY(-5px) rot
   background: var(--ubuntu-selection);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
+
+/* --- Share bar -------------------------------------------------------- */
+.share-bar {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ubuntu-border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.share-label {
+  font-size: 13px;
+  color: var(--ubuntu-text-3);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.share-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--ubuntu-border-strong);
+  background: var(--ubuntu-surface);
+  color: var(--ubuntu-text-2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-size: 0;
+}
+.share-btn svg {
+  width: 18px;
+  height: 18px;
+}
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+.share-btn--x:hover         { background: #000; color: #fff; border-color: #000; }
+.share-btn--linkedin:hover  { background: #0a66c2; color: #fff; border-color: #0a66c2; }
+.share-btn--reddit:hover    { background: #ff4500; color: #fff; border-color: #ff4500; }
+.share-btn--hn:hover        { background: #f06520; color: #fff; border-color: #f06520; }
+.share-btn--email:hover     { background: var(--ubuntu-orange); color: #fff; border-color: var(--ubuntu-orange); }
+.share-btn--copy:hover      { background: var(--ubuntu-aubergine); color: #fff; border-color: var(--ubuntu-aubergine); }
+
+/* Copy button - icon swap on copied */
+.share-btn--copy .icon-check { display: none; }
+.share-btn--copy.copied .icon-copy  { display: none; }
+.share-btn--copy.copied .icon-check { display: block; color: #22c55e; }
+.share-btn--copy.copied { border-color: #22c55e; background: #f0fdf4; }
 
 /* --- Code blocks (Prism.js overrides + plain pre without language) ---- */
 pre[class*="language-"],
@@ -754,12 +811,23 @@ hr {
 ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.35); }
 
 /* ======================================================================
+   Mobile-only fixes (< 768px)
+   ====================================================================== */
+@media (max-width: 767px) {
+  /* Hide nav links & clock on small screens — accessible via sidebar */
+  .gnome-menubar { display: none; }
+  .gnome-center-clock { left: auto; right: 50px; transform: none; font-size: 12px; }
+  .gnome-panel-right { gap: 5px; }
+  .gnome-panel-indicator { font-size: 12px; }
+}
+
+/* ======================================================================
    Tablet (>= 768px)
    ====================================================================== */
 @media (min-width: 768px) {
   .posts-grid { grid-template-columns: repeat(2, 1fr); }
   .content { padding: 24px; }
-  .post-window-content { padding: 24px 32px; }
+  .post-window-content { padding: 24px 24px; }
 }
 
 /* ======================================================================
@@ -771,5 +839,5 @@ hr {
   .page-wrapper { margin-left: var(--sidebar-w); }
   .hamburger { display: none; }
   .content { padding: 28px 32px; }
-  .post-window-content { padding: 28px 40px; }
+  .post-window-content { padding: 28px 28px; }
 }

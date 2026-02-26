@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://r3verii.github.io/sitemap.xml

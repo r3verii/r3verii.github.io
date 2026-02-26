@@ -18,3 +18,18 @@ author:
   avatar: "https://avatars.githubusercontent.com/u/143962203?v=4"
   linkedin: "https://www.linkedin.com/in/martino-spagnuolo/"
   github: "https://github.com/r3verii"
+
+# SEO & social sharing
+twitter:
+  username: r3verii
+social:
+  name: Martino Spagnuolo
+  links:
+    - https://www.linkedin.com/in/martino-spagnuolo/
+    - https://github.com/r3verii
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      image: "https://avatars.githubusercontent.com/u/143962203?v=4"

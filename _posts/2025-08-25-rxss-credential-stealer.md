@@ -3,6 +3,7 @@ layout: post
 title: "From \"Low-Impact\" RXSS to Credential Stealer: A JS-in-JS Walkthrough"
 date: 2025-08-25T00:14:54+00:00
 img_dir: "/assets/2025-08-25-rxss-credential-stealer/images"
+image: "/assets/2025-08-25-rxss-credential-stealer/images/cover.png"
 description: "From the classic “quote break” in a <script> to a login takeover: step by step, I show how a “low-impact” RXSS becomes a real credential stealer."
 categories: [bugbounty]
 ---
