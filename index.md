@@ -1,5 +1,6 @@
 ---
 layout: default
+title: "@r3verii (Martino Spagnuolo) Notes"
 description: "CTF write-ups, CVEs and Bug Bounty findings by Martino Spagnuolo (@r3verii)"
 image:
   path: "/assets/img/og-home.png"
