@@ -4,9 +4,9 @@ title: "The Forgotten Bug: How a Node.js Core Design Flaw Enables HTTP Request S
 date: 2026-02-27T00:14:54+00:00
 img_dir: "/assets/2026-02-27-nodejs-toctou"
 image:
-  path: "/assets/2026-02-27-nodejs-toctou/cover.png"
-  width: 2848
-  height: 1504
+  path: "/assets/2026-02-27-nodejs-toctou/cover.jpg"
+  width: 1200
+  height: 633
   alt: "Node.js TOCTOU HTTP Request Splitting"
 description: "Deep dive into a TOCTOU vulnerability in Node.js's ClientRequest.path that bypasses CRLF validation and enables Header Injection and HTTP Request Splitting across 7+ major HTTP libraries totaling 160M+ weekly downloads."
 categories: [cve]
@@ -100,8 +100,7 @@ The vulnerability I found is a classic [TOCTOU (Time-of-Check-Time-of-Use)](http
 
 ```
               TIME ─────────────────────────────────────────────────────►
-
-    ┌──────────────────┐         ┌────────────────────┐        ┌──────────────────┐
+    ┌──────────────────┐         ┌─────────────────────┐        ┌──────────────────┐
     │  http.request()  │         │   TOCTOU WINDOW     │        │ _implicitHeader()│
     │                  │         │                     │        │                  │
     │  options.path    │         │  ClientRequest      │        │  this.path used  │
@@ -110,19 +109,18 @@ The vulnerability I found is a classic [TOCTOU (Time-of-Check-Time-of-Use)](http
     │  INVALID_PATH_   │         │  events/callbacks   │        │  line — NO       │
     │  REGEX           │         │                     │        │  re-validation   │
     │                  │         │  .path is a PLAIN   │        │                  │
-    │  ✅ CHECK        │         │  WRITABLE property  │        │  ❌ USE          │
-    └──────────────────┘         └────────────────────┘        └──────────────────┘
-
-                                          │
-                                          ▼
-                                  ┌────────────────────┐
+    │  ✅✅ CHECK     │         │  WRITABLE property  │        │  ❌❌ USE       │
+    └──────────────────┘         └─────────────────────┘        └──────────────────┘
+                                          🡩
+                                          |
+                                  ┌─────────────────────┐
                                   │  ATTACKER MUTATES   │
                                   │  clientReq.path =   │
                                   │  "/x\r\n\r\nGET /"  │
                                   │                     │
                                   │  Validation is      │
                                   │  NEVER re-run       │
-                                  └────────────────────┘
+                                  └─────────────────────┘
 ```
 
 In simple terms:

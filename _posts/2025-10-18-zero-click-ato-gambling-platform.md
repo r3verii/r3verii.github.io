@@ -4,9 +4,9 @@ title: "Zero‑Click ATO via Unbound Password‑Reset Token in one of the world'
 date: 2025-10-18T00:14:54+00:00
 img_dir: "/assets/2025-10-18-zero-click-ato-gambling-platform"
 image:
-  path: "/assets/2025-10-18-zero-click-ato-gambling-platform/cover.png"
-  width: 1536
-  height: 1024
+  path: "/assets/2025-10-18-zero-click-ato-gambling-platform/cover.jpg"
+  width: 1200
+  height: 800
   alt: "Zero-Click ATO via Unbound Password-Reset Token"
 description: "How a single-use OTP flow token not bound to the correct subject enabled a zero‑click account takeover."
 categories: [bugbounty]

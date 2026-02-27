@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3b3b3b"/>
+      <stop offset="100%" stop-color="#2c2c2c"/>
+    </radialGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="url(#bg)"/>
+  <!-- Spider body -->
+  <ellipse cx="256" cy="230" rx="52" ry="48" fill="#e95420"/>
+  <ellipse cx="256" cy="310" rx="68" ry="62" fill="#e95420"/>
+  <!-- Body highlight -->
+  <ellipse cx="256" cy="300" rx="45" ry="38" fill="#f2784b" opacity="0.25"/>
+  <!-- Eyes -->
+  <circle cx="240" cy="218" r="10" fill="#fff"/>
+  <circle cx="272" cy="218" r="10" fill="#fff"/>
+  <circle cx="242" cy="219" r="5" fill="#1a1a1a"/>
+  <circle cx="274" cy="219" r="5" fill="#1a1a1a"/>
+  <!-- Small eyes -->
+  <circle cx="225" cy="230" r="6" fill="#fff" opacity="0.8"/>
+  <circle cx="287" cy="230" r="6" fill="#fff" opacity="0.8"/>
+  <circle cx="226" cy="231" r="3" fill="#1a1a1a"/>
+  <circle cx="288" cy="231" r="3" fill="#1a1a1a"/>
+  <!-- Fangs -->
+  <path d="M248 248 Q244 268 240 272" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M264 248 Q268 268 272 272" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- Legs - Left side -->
+  <path d="M200 260 Q150 200 90 160" stroke="#e95420" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M90 160 Q70 140 50 155" stroke="#e95420" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M195 285 Q130 245 70 230" stroke="#e95420" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M70 230 Q45 225 35 245" stroke="#e95420" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M195 315 Q130 320 70 345" stroke="#e95420" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M70 345 Q50 355 45 375" stroke="#e95420" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M205 340 Q160 390 110 430" stroke="#e95420" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M110 430 Q95 450 80 455" stroke="#e95420" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <!-- Legs - Right side -->
+  <path d="M312 260 Q362 200 422 160" stroke="#e95420" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M422 160 Q442 140 462 155" stroke="#e95420" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M317 285 Q382 245 442 230" stroke="#e95420" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M442 230 Q467 225 477 245" stroke="#e95420" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M317 315 Q382 320 442 345" stroke="#e95420" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M442 345 Q462 355 467 375" stroke="#e95420" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M307 340 Q352 390 402 430" stroke="#e95420" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M402 430 Q417 450 432 455" stroke="#e95420" stroke-width="10" fill="none" stroke-linecap="round"/>
+</svg>

@@ -4,9 +4,9 @@ title: "3 Ways In: Exploiting WordPress Plugins via File Upload and Deserializat
 date: 2025-04-08T08:14:54+00:00
 img_dir: "/assets/2025-04-08-expoiting-wordpress/images"
 image:
-  path: "/assets/2025-04-08-expoiting-wordpress/images/cover.png"
-  width: 1536
-  height: 1024
+  path: "/assets/2025-04-08-expoiting-wordpress/images/cover.jpg"
+  width: 1200
+  height: 800
   alt: "3 Ways In: Exploiting WordPress Plugins via File Upload and Deserialization"
 description: "In this post, I break down three real-world vulnerabilities found in WordPress plugins — from unsafe deserialization to arbitrary file upload — and show how they can lead to full compromise.Includes analysis, PoCs, and exploitation details."
 categories: [cve]
