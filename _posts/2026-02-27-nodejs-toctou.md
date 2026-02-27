@@ -3,7 +3,11 @@ layout: post
 title: "The Forgotten Bug: How a Node.js Core Design Flaw Enables HTTP Request Splitting"
 date: 2026-02-27T00:14:54+00:00
 img_dir: "/assets/2026-02-27-nodejs-toctou"
-image: "/assets/2026-02-27-nodejs-toctou/cover.png"
+image:
+  path: "/assets/2026-02-27-nodejs-toctou/cover.png"
+  width: 2848
+  height: 1504
+  alt: "Node.js TOCTOU HTTP Request Splitting"
 description: "Deep dive into a TOCTOU vulnerability in Node.js's ClientRequest.path that bypasses CRLF validation and enables Header Injection and HTTP Request Splitting across 7+ major HTTP libraries totaling 160M+ weekly downloads."
 categories: [cve]
 ---

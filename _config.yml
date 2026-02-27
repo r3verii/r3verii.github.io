@@ -32,4 +32,8 @@ defaults:
       path: ""
       type: "posts"
     values:
-      image: "https://avatars.githubusercontent.com/u/143962203?v=4"
+      image:
+        path: "/assets/img/og-home.png"
+        width: 1200
+        height: 630
+        alt: "CyberSec Notes — Martino Spagnuolo (@r3verii)"
