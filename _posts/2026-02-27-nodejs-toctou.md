@@ -381,23 +381,24 @@ The same pattern applies identically to **http-proxy-3** (used by Vite, 78.4K st
 >
 > The most popular Express/Connect proxy middleware. Built on top of node-http-proxy. Used by Create React App, Angular CLI, webpack-dev-server, and countless production applications.
 
-http-proxy-middleware inherits the TOCTOU window from node-http-proxy and **amplifies** it with three additional vectors:
+http-proxy-middleware is built on top of node-http-proxy and inherits the same TOCTOU window via the `on.proxyReq` handler. The vulnerable pattern is identical:
 
-**Vector A — `pathRewrite` (zero CRLF sanitization):**
+**The Window (inherited from node-http-proxy):**
 
-[source](https://github.com/chimurai/http-proxy-middleware/blob/master/src/http-proxy-middleware.ts#L176-L182)
+Any code inside `on.proxyReq` that assigns to `proxyReq.path` bypasses CRLF validation, exactly as in node-http-proxy. http-proxy-middleware simply wraps the configuration:
 
-```typescript
-// src/http-proxy-middleware.ts, lines 176-182
-const path = await pathRewriter(req.url, req);
-if (typeof path === 'string') {
-    req.url = path;  // ← NO sanitization for CRLF characters
-}
+```javascript
+createProxyMiddleware({
+    target: 'http://backend:8080',
+    on: {
+        proxyReq: (proxyReq, req, res) => {
+            proxyReq.path = userControlledValue;  // ← TOCTOU: same window as node-http-proxy
+        }
+    }
+});
 ```
 
-When `pathRewrite` is a function, its return value is assigned directly to `req.url` without any validation. If the function returns a string containing CRLF, those bytes flow through to the proxy request path.
-
-**Vector B — `fixRequestBody()` as flush trigger:**
+**Note on `fixRequestBody()`:**
 
 [source](https://github.com/chimurai/http-proxy-middleware/blob/master/src/handlers/fix-request-body.ts#L30-L32)
 
@@ -409,21 +410,7 @@ const writeBody = (bodyData: string) => {
 };
 ```
 
-When `fixRequestBody()` is called inside an `on.proxyReq` handler, the `.write()` call triggers `_implicitHeader()` — flushing whatever is in `proxyReq.path` to the wire. This means the window closes *inside* the handler, making the timing deterministic rather than race-dependent.
-
-**Vector C — `on.proxyReq` (inherited from node-http-proxy):**
-
-```javascript
-createProxyMiddleware({
-    target: 'http://backend:8080',
-    on: {
-        proxyReq: (proxyReq, req, res) => {
-            proxyReq.path = maliciousValue;    // ← TOCTOU
-            fixRequestBody(proxyReq, req);      // ← FLUSH (deterministic)
-        }
-    }
-});
-```
+`fixRequestBody()` does not modify `proxyReq.path` — it only writes the body. However, the `.write()` call triggers `_implicitHeader()`, which flushes whatever is currently in `proxyReq.path` to the wire. If a path mutation happens *before* `fixRequestBody()` in the same handler, the flush is deterministic rather than race-dependent.
 
 ---
 
