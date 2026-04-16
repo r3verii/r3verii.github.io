@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 780 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Desync sequence: attacker poisons the pooled backend connection; victim's request gets corrupted." style="max-width:100%;height:auto;display:block;margin:1.5rem auto" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">
+  <!-- Lifelines -->
+  <line x1="120" y1="44"  x2="120" y2="640" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+  <line x1="360" y1="44"  x2="360" y2="640" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+  <line x1="560" y1="44"  x2="560" y2="640" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+
+  <!-- Column headers -->
+  <text x="120" y="32" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">Attacker (H3/QUIC)</text>
+  <text x="360" y="32" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">HAProxy</text>
+  <text x="560" y="32" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">Backend (nginx)</text>
+
+  <!-- ============== STEP [1]: attacker sends headers; HAProxy forwards POST ============== -->
+  <text x="20" y="78" font-size="11" fill="currentColor" font-weight="bold">[1]</text>
+  <text x="240" y="64" text-anchor="middle" font-size="10" fill="currentColor">H3 HEADERS · POST /photos · CL=5 · end_stream=False</text>
+  <path d="M120 72 L355 72" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrC)"/>
+
+  <text x="460" y="92" text-anchor="middle" font-size="10" fill="currentColor">POST /photos HTTP/1.1</text>
+  <text x="460" y="106" text-anchor="middle" font-size="10" fill="currentColor">Content-Length: 5 · 0 body bytes</text>
+  <path d="M365 114 L555 114" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrC)"/>
+
+  <!-- ============== STEP [2]: standalone FIN triggers fast-path; nginx early-responds ============== -->
+  <text x="20" y="160" font-size="11" fill="currentColor" font-weight="bold">[2]</text>
+  <text x="240" y="156" text-anchor="middle" font-size="10" fill="#d9534f">QUIC STREAM frame · len=0 · FIN=1</text>
+  <path d="M120 164 L355 164" fill="none" stroke="#d9534f" stroke-width="1.4" marker-end="url(#arrCred)"/>
+
+  <rect x="195" y="178" width="290" height="40" fill="none" stroke="#d9534f" stroke-width="1.6" rx="3"/>
+  <text x="340" y="194" text-anchor="middle" font-size="10" fill="#d9534f">fast-path triggered → HTX_FL_EOM set</text>
+  <text x="340" y="210" text-anchor="middle" font-size="10" fill="#d9534f">h3_check_body_size SKIPPED</text>
+
+  <text x="460" y="244" text-anchor="middle" font-size="10" fill="currentColor">301 Moved Permanently</text>
+  <text x="460" y="258" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.7">(early response, body unread)</text>
+  <path d="M555 266 L365 266" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrC)"/>
+
+  <!-- ============== STEP [3]: HAProxy returns connection to pool ============== -->
+  <text x="20" y="300" font-size="11" fill="currentColor" font-weight="bold">[3]</text>
+  <text x="240" y="296" text-anchor="middle" font-size="10" fill="currentColor">301 forwarded to client</text>
+  <path d="M355 304 L120 304" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrC)"/>
+
+  <rect x="195" y="318" width="330" height="58" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2" rx="3"/>
+  <text x="360" y="336" text-anchor="middle" font-size="10" fill="currentColor">mux_h1: req=DONE, res=DONE</text>
+  <text x="360" y="352" text-anchor="middle" font-size="10" fill="currentColor">→ TCP connection returned to backend pool</text>
+  <text x="360" y="368" text-anchor="middle" font-size="10" fill="#d9534f">** nginx still expects 5 body bytes **</text>
+
+  <!-- ============== Divider + victim header ============== -->
+  <line x1="40" y1="406" x2="760" y2="406" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6" stroke-dasharray="4,3"/>
+  <text x="120" y="428" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">Victim (any protocol)</text>
+
+  <!-- ============== STEP [4]: victim's request lands on the poisoned pooled socket ============== -->
+  <text x="20" y="478" font-size="11" fill="currentColor" font-weight="bold">[4]</text>
+  <text x="240" y="464" text-anchor="middle" font-size="10" fill="currentColor">GET /status (innocent user)</text>
+  <path d="M120 472 L355 472" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrC)"/>
+
+  <text x="460" y="492" text-anchor="middle" font-size="10" fill="currentColor">GET /status HTTP/1.1</text>
+  <text x="460" y="506" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.7">(same pooled TCP socket)</text>
+  <path d="M365 514 L555 514" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrC)"/>
+
+  <!-- Right-side annotation box: lives entirely past x=560, no lifeline overlap -->
+  <path d="M555 514 L580 514" stroke="#d9534f" stroke-width="1" stroke-dasharray="3,2" fill="none"/>
+  <rect x="580" y="478" width="180" height="74" fill="none" stroke="#d9534f" stroke-width="1.6" rx="3"/>
+  <text x="670" y="494" text-anchor="middle" font-size="9" fill="#d9534f">nginx reads "GET /"</text>
+  <text x="670" y="508" text-anchor="middle" font-size="9" fill="#d9534f">as the 5 pending body bytes</text>
+  <text x="670" y="524" text-anchor="middle" font-size="9" fill="#d9534f">then parses "status HTTP/1.1…"</text>
+  <text x="670" y="538" text-anchor="middle" font-size="9" fill="#d9534f">as a NEW request → 400</text>
+
+  <!-- ============== STEP [5]: 400 propagates back ============== -->
+  <text x="20" y="588" font-size="11" fill="currentColor" font-weight="bold">[5]</text>
+  <text x="460" y="582" text-anchor="middle" font-size="10" fill="#d9534f">400 Bad Request</text>
+  <path d="M555 590 L365 590" fill="none" stroke="#d9534f" stroke-width="1.4" marker-end="url(#arrCred)"/>
+
+  <text x="240" y="610" text-anchor="middle" font-size="10" fill="#d9534f">400 to victim (expected 200)</text>
+  <path d="M355 618 L120 618" fill="none" stroke="#d9534f" stroke-width="1.4" marker-end="url(#arrCred)"/>
+
+  <defs>
+    <marker id="arrC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+    <marker id="arrCred" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d9534f"/>
+    </marker>
+  </defs>
+</svg>

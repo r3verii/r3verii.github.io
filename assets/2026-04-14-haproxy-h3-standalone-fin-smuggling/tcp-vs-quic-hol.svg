@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 800 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TCP vs QUIC behavior on packet loss. TCP blocks all streams; QUIC blocks only the affected one." style="max-width:100%;height:auto;display:block;margin:1.5rem auto" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">
+  <text x="200" y="20" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">HTTP/2 over TCP</text>
+  <text x="200" y="35" text-anchor="middle" font-size="11" fill="#d9534f">a single lost segment blocks EVERY stream</text>
+
+  <text x="600" y="20" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">HTTP/3 over QUIC</text>
+  <text x="600" y="35" text-anchor="middle" font-size="11" fill="#2e8b57">a lost packet blocks only its own stream</text>
+
+  <line x1="400" y1="45" x2="400" y2="420" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+
+  <g transform="translate(50,60)">
+    <text x="150" y="0" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">— 5 packets arrive in this order —</text>
+
+    <rect x="0"   y="10" width="60" height="48" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <text x="30"  y="30" text-anchor="middle" font-size="11" fill="currentColor">seg 1</text>
+    <text x="30"  y="48" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 1</text>
+
+    <rect x="60"  y="10" width="60" height="48" fill="none" stroke="#d9534f" stroke-width="1.8"/>
+    <text x="90"  y="30" text-anchor="middle" font-size="11" fill="#d9534f">seg 2 ✗</text>
+    <text x="90"  y="48" text-anchor="middle" font-size="10" fill="#d9534f">stream 1</text>
+
+    <rect x="120" y="10" width="60" height="48" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <text x="150" y="30" text-anchor="middle" font-size="11" fill="currentColor">seg 3</text>
+    <text x="150" y="48" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 2</text>
+
+    <rect x="180" y="10" width="60" height="48" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <text x="210" y="30" text-anchor="middle" font-size="11" fill="currentColor">seg 4</text>
+    <text x="210" y="48" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 3</text>
+
+    <rect x="240" y="10" width="60" height="48" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <text x="270" y="30" text-anchor="middle" font-size="11" fill="currentColor">seg 5</text>
+    <text x="270" y="48" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 2</text>
+
+    <text x="90"  y="74" text-anchor="middle" font-size="10" fill="#d9534f">↑ lost in transit ↑</text>
+
+    <text x="150" y="102" text-anchor="middle" font-size="10" fill="currentColor">kernel buffer (one in-order byte stream):</text>
+    <rect x="0"  y="112" width="300" height="42" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2"/>
+    <line x1="60"  y1="112" x2="60"  y2="154" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    <line x1="120" y1="112" x2="120" y2="154" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    <line x1="180" y1="112" x2="180" y2="154" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    <line x1="240" y1="112" x2="240" y2="154" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    <text x="30"  y="138" text-anchor="middle" font-size="10" fill="#2e8b57">✓ seg 1</text>
+    <text x="90"  y="138" text-anchor="middle" font-size="10" fill="#d9534f">GAP</text>
+    <text x="150" y="138" text-anchor="middle" font-size="10" fill="#d9534f">held</text>
+    <text x="210" y="138" text-anchor="middle" font-size="10" fill="#d9534f">held</text>
+    <text x="270" y="138" text-anchor="middle" font-size="10" fill="#d9534f">held</text>
+
+    <text x="150" y="184" text-anchor="middle" font-size="10" fill="currentColor">what each stream delivers to the app:</text>
+
+    <rect x="0" y="194" width="300" height="26" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="0.8"/>
+    <text x="10" y="210" font-size="10" fill="currentColor">stream 1:</text>
+    <text x="65" y="210" font-size="10" fill="#2e8b57">seg 1 delivered</text>
+    <text x="155" y="210" font-size="10" fill="#d9534f">— rest waits for retx</text>
+
+    <rect x="0" y="224" width="300" height="26" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="0.8"/>
+    <text x="10" y="240" font-size="10" fill="currentColor">stream 2:</text>
+    <text x="65" y="240" font-size="10" fill="#d9534f">✗ BLOCKED (bytes arrived but held)</text>
+
+    <rect x="0" y="254" width="300" height="26" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="0.8"/>
+    <text x="10" y="270" font-size="10" fill="currentColor">stream 3:</text>
+    <text x="65" y="270" font-size="10" fill="#d9534f">✗ BLOCKED (bytes arrived but held)</text>
+
+    <text x="150" y="310" text-anchor="middle" font-size="10" fill="#d9534f">streams 2 &amp; 3 are intact — but trapped behind</text>
+    <text x="150" y="324" text-anchor="middle" font-size="10" fill="#d9534f">seg 2's gap; TCP delivers in strict order</text>
+  </g>
+
+  <g transform="translate(450,60)">
+    <text x="150" y="0" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">— 5 packets arrive in this order —</text>
+
+    <rect x="0"   y="10" width="60" height="48" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <text x="30"  y="30" text-anchor="middle" font-size="11" fill="currentColor">pkt 1</text>
+    <text x="30"  y="48" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 1</text>
+
+    <rect x="60"  y="10" width="60" height="48" fill="none" stroke="#d9534f" stroke-width="1.8"/>
+    <text x="90"  y="30" text-anchor="middle" font-size="11" fill="#d9534f">pkt 2 ✗</text>
+    <text x="90"  y="48" text-anchor="middle" font-size="10" fill="#d9534f">stream 1</text>
+
+    <rect x="120" y="10" width="60" height="48" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <text x="150" y="30" text-anchor="middle" font-size="11" fill="currentColor">pkt 3</text>
+    <text x="150" y="48" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 2</text>
+
+    <rect x="180" y="10" width="60" height="48" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <text x="210" y="30" text-anchor="middle" font-size="11" fill="currentColor">pkt 4</text>
+    <text x="210" y="48" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 3</text>
+
+    <rect x="240" y="10" width="60" height="48" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <text x="270" y="30" text-anchor="middle" font-size="11" fill="currentColor">pkt 5</text>
+    <text x="270" y="48" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 2</text>
+
+    <text x="90"  y="74" text-anchor="middle" font-size="10" fill="#d9534f">↑ lost in transit ↑</text>
+
+    <text x="150" y="102" text-anchor="middle" font-size="10" fill="currentColor">per-stream receive buffers (one ncb per stream):</text>
+
+    <text x="42"  y="122" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 1</text>
+    <rect x="0"   y="128" width="84" height="26" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2"/>
+    <line x1="42" y1="128" x2="42" y2="154" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    <text x="21" y="145" text-anchor="middle" font-size="10" fill="#2e8b57">✓ pkt 1</text>
+    <text x="63" y="145" text-anchor="middle" font-size="10" fill="#d9534f">GAP</text>
+
+    <text x="153" y="122" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 2</text>
+    <rect x="93" y="128" width="120" height="26" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2"/>
+    <line x1="153" y1="128" x2="153" y2="154" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    <text x="123" y="145" text-anchor="middle" font-size="10" fill="#2e8b57">✓ pkt 3</text>
+    <text x="183" y="145" text-anchor="middle" font-size="10" fill="#2e8b57">✓ pkt 5</text>
+
+    <text x="264" y="122" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">stream 3</text>
+    <rect x="222" y="128" width="84" height="26" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2"/>
+    <text x="264" y="145" text-anchor="middle" font-size="10" fill="#2e8b57">✓ pkt 4</text>
+
+    <text x="150" y="184" text-anchor="middle" font-size="10" fill="currentColor">what each stream delivers to the app:</text>
+
+    <rect x="0" y="194" width="300" height="26" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="0.8"/>
+    <text x="10" y="210" font-size="10" fill="currentColor">stream 1:</text>
+    <text x="65" y="210" font-size="10" fill="#d9534f">waiting for pkt 2 retx (has a gap)</text>
+
+    <rect x="0" y="224" width="300" height="26" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="0.8"/>
+    <text x="10" y="240" font-size="10" fill="currentColor">stream 2:</text>
+    <text x="65" y="240" font-size="10" fill="#2e8b57">✓ DELIVERED (pkt 3 + pkt 5 contiguous)</text>
+
+    <rect x="0" y="254" width="300" height="26" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="0.8"/>
+    <text x="10" y="270" font-size="10" fill="currentColor">stream 3:</text>
+    <text x="65" y="270" font-size="10" fill="#2e8b57">✓ DELIVERED (pkt 4)</text>
+
+    <text x="150" y="310" text-anchor="middle" font-size="10" fill="#2e8b57">streams 2 &amp; 3 flow immediately; only stream 1</text>
+    <text x="150" y="324" text-anchor="middle" font-size="10" fill="#2e8b57">waits — correctly, because it actually has a gap</text>
+  </g>
+</svg>

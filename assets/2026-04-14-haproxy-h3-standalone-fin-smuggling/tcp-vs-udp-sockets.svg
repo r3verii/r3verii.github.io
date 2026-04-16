@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TCP gives each client its own FD; UDP shares one FD across all clients." style="max-width:100%;height:auto;display:block;margin:1.5rem auto" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">
+  <text x="180" y="24" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">TCP: one FD per connection</text>
+
+  <rect x="20" y="60" width="80" height="30" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="60" y="79" text-anchor="middle" font-size="11" fill="currentColor">client A</text>
+
+  <rect x="20" y="130" width="80" height="30" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="60" y="149" text-anchor="middle" font-size="11" fill="currentColor">client B</text>
+
+  <rect x="20" y="200" width="80" height="30" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="60" y="219" text-anchor="middle" font-size="11" fill="currentColor">client C</text>
+
+  <path d="M100 75 L240 75" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrA)"/>
+  <path d="M100 145 L240 145" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrA)"/>
+  <path d="M100 215 L240 215" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrA)"/>
+
+  <text x="170" y="68" text-anchor="middle" font-size="10" fill="currentColor">SYN/SYN-ACK/ACK</text>
+  <text x="170" y="138" text-anchor="middle" font-size="10" fill="currentColor">SYN/SYN-ACK/ACK</text>
+  <text x="170" y="208" text-anchor="middle" font-size="10" fill="currentColor">SYN/SYN-ACK/ACK</text>
+
+  <rect x="240" y="55" width="100" height="45" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2"/>
+  <text x="290" y="76" text-anchor="middle" font-size="11" fill="currentColor">FD 42</text>
+  <text x="290" y="92" text-anchor="middle" font-size="10" fill="currentColor">(srv:443 ↔ A)</text>
+
+  <rect x="240" y="125" width="100" height="45" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2"/>
+  <text x="290" y="146" text-anchor="middle" font-size="11" fill="currentColor">FD 43</text>
+  <text x="290" y="162" text-anchor="middle" font-size="10" fill="currentColor">(srv:443 ↔ B)</text>
+
+  <rect x="240" y="195" width="100" height="45" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2"/>
+  <text x="290" y="216" text-anchor="middle" font-size="11" fill="currentColor">FD 44</text>
+  <text x="290" y="232" text-anchor="middle" font-size="10" fill="currentColor">(srv:443 ↔ C)</text>
+
+  <text x="290" y="280" text-anchor="middle" font-size="10" fill="currentColor">kernel keeps per-connection buffers,</text>
+  <text x="290" y="294" text-anchor="middle" font-size="10" fill="currentColor">seq numbers, congestion state</text>
+
+  <line x1="370" y1="40" x2="370" y2="330" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+
+  <text x="540" y="24" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">UDP: one FD for everyone</text>
+
+  <rect x="400" y="60" width="80" height="30" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="440" y="79" text-anchor="middle" font-size="11" fill="currentColor">client A</text>
+
+  <rect x="400" y="130" width="80" height="30" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="440" y="149" text-anchor="middle" font-size="11" fill="currentColor">client B</text>
+
+  <rect x="400" y="200" width="80" height="30" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="440" y="219" text-anchor="middle" font-size="11" fill="currentColor">client C</text>
+
+  <!-- Three arrows that meet at a single junction, then a single arrow into the FD -->
+  <path d="M480 75  L555 75  L575 130" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M480 145 L575 145"          fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M480 215 L555 215 L575 160" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="575" cy="145" r="2.5" fill="currentColor"/>
+  <path d="M575 145 L595 145" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrA)"/>
+
+  <text x="525" y="68"  text-anchor="middle" font-size="10" fill="currentColor">datagram</text>
+  <text x="525" y="138" text-anchor="middle" font-size="10" fill="currentColor">datagram</text>
+  <text x="525" y="208" text-anchor="middle" font-size="10" fill="currentColor">datagram</text>
+
+  <rect x="600" y="125" width="100" height="45" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2"/>
+  <text x="650" y="146" text-anchor="middle" font-size="11" fill="currentColor">FD 42</text>
+  <text x="650" y="162" text-anchor="middle" font-size="10" fill="currentColor">(srv:443)</text>
+
+  <text x="650" y="210" text-anchor="middle" font-size="10" fill="currentColor">one shared queue;</text>
+  <text x="650" y="224" text-anchor="middle" font-size="10" fill="currentColor">each datagram carries its</text>
+  <text x="650" y="238" text-anchor="middle" font-size="10" fill="currentColor">source address;</text>
+  <text x="650" y="252" text-anchor="middle" font-size="10" fill="currentColor">the app must demux</text>
+
+  <defs>
+    <marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>

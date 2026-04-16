@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HTTP/1.1: browser opens 6 parallel TCP connections; remaining resources wait." style="max-width:100%;height:auto;display:block;margin:1.5rem auto" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">
+  <rect x="20" y="120" width="100" height="80" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="70" y="150" text-anchor="middle" font-size="13" fill="currentColor">Browser</text>
+  <text x="70" y="170" text-anchor="middle" font-size="10" fill="currentColor">6 conn cap</text>
+  <text x="70" y="184" text-anchor="middle" font-size="10" fill="currentColor">per origin</text>
+
+  <rect x="560" y="120" width="120" height="80" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="620" y="150" text-anchor="middle" font-size="13" fill="currentColor">Origin server</text>
+  <text x="620" y="174" text-anchor="middle" font-size="10" fill="currentColor">one response</text>
+  <text x="620" y="188" text-anchor="middle" font-size="10" fill="currentColor">at a time per conn</text>
+
+  <line x1="120" y1="40"  x2="560" y2="40"  fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="340" y="34" text-anchor="middle" font-size="10" fill="currentColor">TCP #1 — GET /index.html</text>
+  <line x1="120" y1="64"  x2="560" y2="64"  fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="340" y="58" text-anchor="middle" font-size="10" fill="currentColor">TCP #2 — GET /style.css</text>
+  <line x1="120" y1="88"  x2="560" y2="88"  fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="340" y="82" text-anchor="middle" font-size="10" fill="currentColor">TCP #3 — GET /script.js</text>
+  <line x1="120" y1="232" x2="560" y2="232" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="340" y="226" text-anchor="middle" font-size="10" fill="currentColor">TCP #4 — GET /logo.png</text>
+  <line x1="120" y1="256" x2="560" y2="256" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="340" y="250" text-anchor="middle" font-size="10" fill="currentColor">TCP #5 — GET /banner.jpg</text>
+  <line x1="120" y1="280" x2="560" y2="280" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="340" y="274" text-anchor="middle" font-size="10" fill="currentColor">TCP #6 — GET /font.woff</text>
+
+  <g opacity="0.5">
+    <line x1="120" y1="304" x2="340" y2="304" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <text x="230" y="298" text-anchor="middle" font-size="10" fill="currentColor">queued: /photo1.png</text>
+    <line x1="120" y1="320" x2="340" y2="320" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <text x="230" y="314" text-anchor="middle" font-size="10" fill="currentColor">queued: /photo2.png</text>
+  </g>
+  <path d="M348 304 L353 304 L353 320 L348 320 M353 312 L360 312" stroke="#d9534f" stroke-width="1" fill="none" opacity="0.7"/>
+  <text x="510" y="316" text-anchor="middle" font-size="10" fill="#d9534f">waiting for a connection to free up</text>
+</svg>

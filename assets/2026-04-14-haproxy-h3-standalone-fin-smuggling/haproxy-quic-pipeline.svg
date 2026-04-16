@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 720 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pipeline: UDP socket buffer to h3_rcv_buf, with batching stages annotated." style="max-width:100%;height:auto;display:block;margin:1.5rem auto" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">
+  <rect x="200" y="20" width="320" height="42" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2" rx="3"/>
+  <text x="360" y="38" text-anchor="middle" font-size="13" fill="currentColor">kernel UDP socket buffer</text>
+  <text x="360" y="54" text-anchor="middle" font-size="10" fill="currentColor">queue of datagrams from all QUIC clients</text>
+  <path d="M360 62 L360 90" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrB)"/>
+
+  <rect x="160" y="90" width="400" height="80" fill="none" stroke="currentColor" stroke-width="1.4" rx="3"/>
+  <text x="360" y="110" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">quic_lstnr_sock_fd_iocb()</text>
+  <text x="360" y="128" text-anchor="middle" font-size="10" fill="currentColor">FD poll handler. Reads up to maxpollevents dgrams.</text>
+  <text x="360" y="146" text-anchor="middle" font-size="10" fill="currentColor">recvmsg() — one syscall = one datagram</text>
+  <text x="360" y="162" text-anchor="middle" font-size="10" fill="currentColor">quic_lstnr_dgram_dispatch() — DCID lookup, enqueue per thread</text>
+  <path d="M360 170 L360 200" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrB)"/>
+
+  <rect x="160" y="200" width="400" height="80" fill="none" stroke="currentColor" stroke-width="1.4" rx="3"/>
+  <text x="360" y="220" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">quic_lstnr_dghdlr()</text>
+  <text x="360" y="238" text-anchor="middle" font-size="10" fill="currentColor">tasklet — drains per-thread dgram queue</text>
+  <text x="360" y="254" text-anchor="middle" font-size="10" fill="currentColor">quic_dgram_parse() → iterates coalesced QUIC packets</text>
+  <text x="360" y="270" text-anchor="middle" font-size="10" fill="currentColor">qc_rx_pkt_handle() removes HP, inserts in qel->rx.pkts tree</text>
+  <path d="M360 280 L360 310" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrB)"/>
+  <path d="M560 267 L575 267" stroke="#d9534f" stroke-width="1" stroke-dasharray="3,2" fill="none"/>
+  <text x="578" y="263" font-size="10" fill="#d9534f">wakes qc tasklet</text>
+  <text x="578" y="276" font-size="10" fill="#d9534f">(coalesced)</text>
+
+  <rect x="120" y="310" width="480" height="120" fill="none" stroke="currentColor" stroke-width="1.4" rx="3"/>
+  <text x="360" y="330" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">quic_conn_app_io_cb()</text>
+  <text x="360" y="348" text-anchor="middle" font-size="10" fill="currentColor">connection tasklet — ONE invocation, drains the whole tree</text>
+  <text x="170" y="366" font-size="10" fill="currentColor">qc_treat_rx_pkts() iterates packets in PN order:</text>
+  <text x="170" y="382" font-size="10" fill="currentColor">├─ qc_pkt_decrypt() → AEAD decryption</text>
+  <text x="170" y="398" font-size="10" fill="currentColor">└─ qc_parse_pkt_frms() → iterates frames inside the packet</text>
+  <text x="200" y="414" font-size="10" fill="currentColor">└─ qc_handle_strm_frm() for every STREAM frame</text>
+  <path d="M360 430 L360 460" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrB)"/>
+
+  <rect x="160" y="460" width="400" height="80" fill="none" stroke="currentColor" stroke-width="1.4" rx="3"/>
+  <text x="360" y="480" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">qcc_recv()</text>
+  <text x="360" y="498" text-anchor="middle" font-size="10" fill="currentColor">copies bytes into the per-stream ncb buffer</text>
+  <text x="360" y="514" text-anchor="middle" font-size="10" fill="currentColor">sets QC_SF_SIZE_KNOWN if FIN bit seen</text>
+  <text x="360" y="530" text-anchor="middle" font-size="10" fill="currentColor">invokes the dispatch loop → qcc_decode_qcs()</text>
+  <path d="M360 540 L360 570" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrB)"/>
+
+  <rect x="160" y="570" width="400" height="60" fill="none" stroke="#d9534f" stroke-width="1.8" rx="3"/>
+  <text x="360" y="590" text-anchor="middle" font-size="13" fill="#d9534f" font-weight="bold">h3_rcv_buf()</text>
+  <text x="360" y="608" text-anchor="middle" font-size="10" fill="#d9534f">★ called ONCE PER STREAM FRAME ★</text>
+  <text x="360" y="622" text-anchor="middle" font-size="10" fill="#d9534f">timing between packets is irrelevant here</text>
+
+  <text x="360" y="660" text-anchor="middle" font-size="10" fill="currentColor">The batching at every earlier stage is transparent to H3.</text>
+  <text x="360" y="674" text-anchor="middle" font-size="10" fill="currentColor">Each STREAM frame produces its own h3_rcv_buf call with its own (b, fin) state.</text>
+
+  <defs>
+    <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>

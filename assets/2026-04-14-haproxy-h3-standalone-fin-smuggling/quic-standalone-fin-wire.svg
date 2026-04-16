@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FIN-only STREAM frame on the wire: 3 fields totaling about 4 bytes, with zero application payload." style="max-width:100%;height:auto;display:block;margin:1.5rem auto" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">
+  <text x="360" y="22" text-anchor="middle" font-size="13" fill="currentColor" font-weight="bold">Standalone FIN frame on the wire</text>
+  <text x="360" y="38" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.7">type byte 0x0d — OFF flag set, LEN flag cleared, FIN flag set</text>
+
+  <rect x="100" y="62" width="100" height="70" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.4"/>
+  <text x="150" y="86" text-anchor="middle" font-size="11" fill="currentColor">Type</text>
+  <text x="150" y="108" text-anchor="middle" font-size="16" fill="currentColor" font-weight="bold">0x0d</text>
+  <text x="150" y="124" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">1 byte</text>
+
+  <rect x="210" y="62" width="140" height="70" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.4"/>
+  <text x="280" y="86" text-anchor="middle" font-size="11" fill="currentColor">Stream ID</text>
+  <text x="280" y="106" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">varint (often 0x00)</text>
+  <text x="280" y="124" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">1–8 bytes</text>
+
+  <rect x="360" y="62" width="140" height="70" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.4"/>
+  <text x="430" y="86" text-anchor="middle" font-size="11" fill="currentColor">Offset</text>
+  <text x="430" y="106" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">varint</text>
+  <text x="430" y="124" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">1–8 bytes</text>
+
+  <rect x="510" y="62" width="110" height="70" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.45"/>
+  <text x="565" y="86" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.55">Length</text>
+  <text x="565" y="106" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.55">LEN=0</text>
+  <text x="565" y="124" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.55">→ omitted</text>
+
+  <path d="M100 152 L500 152" stroke="currentColor" stroke-width="1" opacity="0.6" fill="none"/>
+  <path d="M100 148 L100 156" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+  <path d="M500 148 L500 156" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+  <text x="300" y="170" text-anchor="middle" font-size="11" fill="currentColor">≈ 4 bytes of QUIC framing</text>
+
+  <rect x="100" y="184" width="400" height="30" fill="#d9534f" fill-opacity="0.10" stroke="#d9534f" stroke-width="1.6"/>
+  <text x="300" y="204" text-anchor="middle" font-size="12" fill="#d9534f" font-weight="bold">Application payload: 0 bytes ★</text>
+
+  <text x="360" y="232" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.8">the H3 parser is handed an empty buffer — this is the fast-path trigger condition</text>
+</svg>

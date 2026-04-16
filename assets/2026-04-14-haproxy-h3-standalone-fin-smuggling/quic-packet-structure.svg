@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QUIC packet structure: header plus multiple frames for different streams." style="max-width:100%;height:auto;display:block;margin:1.5rem auto" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">
+  <rect x="30" y="30" width="660" height="410" fill="none" stroke="currentColor" stroke-width="1.4" rx="4"/>
+  <text x="50" y="50" font-size="13" fill="currentColor" font-weight="bold">QUIC Packet</text>
+  <text x="50" y="68" font-size="10" fill="currentColor">header: Destination Connection ID · Packet Number · crypto flags</text>
+  <line x1="30" y1="78" x2="690" y2="78" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+
+  <rect x="50" y="92" width="620" height="92" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2" rx="3"/>
+  <text x="70" y="112" font-size="13" fill="currentColor">STREAM frame #1</text>
+  <text x="70"  y="132" font-size="11" fill="currentColor">Stream ID: 0</text>
+  <text x="200" y="132" font-size="11" fill="currentColor" opacity="0.65">← first HTTP request</text>
+  <text x="70"  y="148" font-size="11" fill="currentColor">Offset: 0</text>
+  <text x="70"  y="164" font-size="11" fill="currentColor">Length: 500</text>
+  <text x="400" y="132" font-size="11" fill="currentColor">FIN: 0</text>
+  <text x="460" y="132" font-size="11" fill="currentColor" opacity="0.65">← not done yet</text>
+  <text x="400" y="148" font-size="11" fill="currentColor">Data: [H3 HEADERS frame, 500 bytes]</text>
+
+  <rect x="50" y="196" width="620" height="92" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2" rx="3"/>
+  <text x="70" y="216" font-size="13" fill="currentColor">STREAM frame #2</text>
+  <text x="70"  y="236" font-size="11" fill="currentColor">Stream ID: 4</text>
+  <text x="200" y="236" font-size="11" fill="currentColor" opacity="0.65">← second HTTP request</text>
+  <text x="70"  y="252" font-size="11" fill="currentColor">Offset: 0</text>
+  <text x="70"  y="268" font-size="11" fill="currentColor">Length: 300</text>
+  <text x="400" y="236" font-size="11" fill="#d9534f">FIN: 1</text>
+  <text x="460" y="236" font-size="11" fill="#d9534f" opacity="0.85">← this request is complete</text>
+  <text x="400" y="252" font-size="11" fill="currentColor">Data: [H3 HEADERS frame, 300 bytes]</text>
+
+  <rect x="50" y="300" width="620" height="58" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2" rx="3"/>
+  <text x="70" y="320" font-size="13" fill="currentColor">ACK frame</text>
+  <text x="70" y="340" font-size="11" fill="currentColor">acknowledges previously received packets</text>
+
+  <text x="360" y="390" text-anchor="middle" font-size="10" fill="currentColor">Stream ID and Offset live in each STREAM frame — not in the packet header —</text>
+  <text x="360" y="404" text-anchor="middle" font-size="10" fill="currentColor">because a single packet can carry frames for different streams.</text>
+  <text x="360" y="422" text-anchor="middle" font-size="10" fill="currentColor">The packet header only carries connection-level metadata.</text>
+</svg>
