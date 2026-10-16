@@ -841,3 +841,90 @@ hr {
   .content { padding: 28px 32px; }
   .post-window-content { padding: 28px 28px; }
 }
+
+/* ==================================================================
+   IMAGE LIGHTBOX (click an image to zoom, click outside / Esc to close)
+   ================================================================== */
+.post-content img { cursor: zoom-in; }
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.92);
+  padding: 2vmin;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease;
+  cursor: zoom-out;
+  overflow: hidden;
+}
+.lightbox-overlay.is-open { opacity: 1; visibility: visible; }
+
+.lightbox-overlay img {
+  max-width: 96vw;
+  max-height: 96vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  transform-origin: center center;
+  transition: transform 0.18s ease;
+  cursor: zoom-in;
+  will-change: transform;
+}
+.lightbox-overlay img.zoomed { cursor: zoom-out; }
+
+.lightbox-close {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 26px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 10000;
+  transition: background 0.15s ease;
+}
+.lightbox-close:hover { background: rgba(255, 255, 255, 0.28); }
+
+body.lightbox-open { overflow: hidden; }
+
+/* ==================================================================
+   READING PROGRESS BAR (fills as you scroll through a post)
+   ================================================================== */
+.reading-progress {
+  position: fixed;
+  top: 32px;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--ubuntu-accent);
+  z-index: 60;
+  pointer-events: none;
+  transition: width 0.08s linear;
+}
+
+/* ==================================================================
+   SCROLL CAT — a meme cat sitting just below the tip of the reading-
+   progress bar: still/frontal when idle, spinning while the page moves.
+   ================================================================== */
+.scroll-cat {
+  position: fixed;
+  top: 35px;
+  left: 0;
+  width: 30px;
+  height: auto;
+  z-index: 61;
+  pointer-events: none;
+  will-change: left;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
